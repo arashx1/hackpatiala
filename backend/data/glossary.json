@@ -1,282 +1,667 @@
-﻿[
+[
   {
     "term": "Stock",
     "slug": "stock",
     "eli5": "A stock is a tiny piece of ownership in a company. When you buy one share, you own a small slice of that business and share in its profits or losses.",
     "analogy": "It's like buying one slice of a pizza parlour — you own part of the shop and get a cut of its earnings.",
-    "keywords": ["equity", "share", "shares", "ownership", "common stock"]
+    "keywords": [
+      "equity",
+      "share",
+      "shares",
+      "ownership",
+      "common stock"
+    ]
   },
   {
     "term": "Bond",
     "slug": "bond",
     "eli5": "A bond is a loan you give to a company or government. They promise to pay you back after a set time, plus regular interest payments along the way.",
     "analogy": "Imagine lending your friend $100 and they write an IOU promising to repay you with a little extra — that IOU is basically a bond.",
-    "keywords": ["fixed income", "debt", "coupon", "yield", "treasury", "corporate bond"]
+    "keywords": [
+      "fixed income",
+      "debt",
+      "coupon",
+      "yield",
+      "treasury",
+      "corporate bond"
+    ]
   },
   {
     "term": "Dividend",
     "slug": "dividend",
     "eli5": "A dividend is a portion of a company's profits paid directly to its shareholders, usually every three months. Not all companies pay dividends.",
     "analogy": "Think of dividends like rent payments — if you own part of an apartment building, you collect rent from tenants just for owning it.",
-    "keywords": ["dividend yield", "payout", "income", "quarterly dividend"]
+    "keywords": [
+      "dividend yield",
+      "payout",
+      "income",
+      "quarterly dividend"
+    ]
   },
   {
     "term": "Market Capitalisation",
     "slug": "market-capitalisation",
     "eli5": "Market cap is the total value of all a company's shares put together. It tells you roughly how much the market thinks the whole company is worth.",
     "analogy": "If one slice of a pie costs $10 and there are 100 slices, the whole pie costs $1,000 — that whole-pie price is the market cap.",
-    "keywords": ["market cap", "large cap", "small cap", "mid cap", "valuation"]
+    "keywords": [
+      "market cap",
+      "large cap",
+      "small cap",
+      "mid cap",
+      "valuation"
+    ]
   },
   {
     "term": "Volatility",
     "slug": "volatility",
     "eli5": "Volatility measures how wildly a stock's price swings up and down over time. A highly volatile stock can jump or crash dramatically in a short period.",
     "analogy": "A calm lake versus a stormy sea — a low-volatility stock is like the lake, while a high-volatility one is the choppy ocean.",
-    "keywords": ["standard deviation", "VIX", "price swings", "risk", "variance"]
+    "keywords": [
+      "standard deviation",
+      "VIX",
+      "price swings",
+      "risk",
+      "variance"
+    ]
   },
   {
     "term": "Beta",
     "slug": "beta",
     "eli5": "Beta shows how much a stock moves compared to the overall market. A beta above 1 means it swings more than the market; below 1 means it's calmer.",
     "analogy": "If the market is a car going 60 mph, a beta-2 stock goes 120 mph — twice as fast in both directions.",
-    "keywords": ["systematic risk", "market sensitivity", "correlation", "beta coefficient"]
+    "keywords": [
+      "systematic risk",
+      "market sensitivity",
+      "correlation",
+      "beta coefficient"
+    ]
   },
   {
     "term": "Portfolio",
     "slug": "portfolio",
     "eli5": "A portfolio is the complete collection of all your investments — stocks, bonds, cash, and anything else you own for financial purposes.",
     "analogy": "Just like a music playlist holds all your favourite songs, a portfolio holds all your investments in one place.",
-    "keywords": ["diversification", "holdings", "asset allocation", "investments"]
+    "keywords": [
+      "diversification",
+      "holdings",
+      "asset allocation",
+      "investments"
+    ]
   },
   {
     "term": "Diversification",
     "slug": "diversification",
     "eli5": "Diversification means spreading your money across many different investments so one bad one doesn't wipe you out. It reduces risk by not putting all eggs in one basket.",
     "analogy": "Don't put all your eggs in one basket — if you drop it, you lose everything. Spread them across several baskets instead.",
-    "keywords": ["risk reduction", "spread", "asset classes", "uncorrelated"]
+    "keywords": [
+      "risk reduction",
+      "spread",
+      "asset classes",
+      "uncorrelated"
+    ]
   },
   {
     "term": "Index Fund",
     "slug": "index-fund",
     "eli5": "An index fund automatically buys a tiny bit of every stock in a market index like the S&P 500. You get broad diversification without picking individual stocks.",
     "analogy": "Instead of betting on one horse in a race, you buy a piece of every horse — you win whenever the race as a whole does well.",
-    "keywords": ["passive investing", "S&P 500", "ETF", "tracker fund", "low cost"]
+    "keywords": [
+      "passive investing",
+      "S&P 500",
+      "ETF",
+      "tracker fund",
+      "low cost"
+    ]
   },
   {
     "term": "ETF",
     "slug": "etf",
     "eli5": "An ETF (Exchange-Traded Fund) is like an index fund that you can buy and sell any time the stock market is open, just like a regular stock.",
     "analogy": "It's a basket of groceries you can trade on the stock exchange — you buy the whole basket at once, not individual items.",
-    "keywords": ["exchange traded fund", "index ETF", "sector ETF", "SPY", "QQQ"]
+    "keywords": [
+      "exchange traded fund",
+      "index ETF",
+      "sector ETF",
+      "SPY",
+      "QQQ"
+    ]
   },
   {
     "term": "Mutual Fund",
     "slug": "mutual-fund",
     "eli5": "A mutual fund pools money from many investors, and a professional manager decides which stocks or bonds to buy with it. You buy shares of the fund, not individual stocks.",
     "analogy": "Imagine a group of friends pooling money to hire a chef who shops for and cooks all your meals — the chef is the fund manager.",
-    "keywords": ["fund manager", "active management", "NAV", "open-ended fund"]
+    "keywords": [
+      "fund manager",
+      "active management",
+      "NAV",
+      "open-ended fund"
+    ]
   },
   {
     "term": "Bull Market",
     "slug": "bull-market",
     "eli5": "A bull market is a period when stock prices are rising overall — usually defined as a 20% rise from recent lows. Investors feel optimistic and confident.",
     "analogy": "Like a bull charging forward and upward with its horns, a bull market pushes prices higher.",
-    "keywords": ["bullish", "rally", "uptrend", "rising market", "optimism"]
+    "keywords": [
+      "bullish",
+      "rally",
+      "uptrend",
+      "rising market",
+      "optimism"
+    ]
   },
   {
     "term": "Bear Market",
     "slug": "bear-market",
     "eli5": "A bear market is when stock prices fall 20% or more from recent highs. It usually signals economic slowdown and widespread investor pessimism.",
     "analogy": "Like a bear swiping its paws downward, a bear market pushes prices lower.",
-    "keywords": ["bearish", "downturn", "correction", "recession", "pessimism"]
+    "keywords": [
+      "bearish",
+      "downturn",
+      "correction",
+      "recession",
+      "pessimism"
+    ]
   },
   {
     "term": "P/E Ratio",
     "slug": "pe-ratio",
     "eli5": "The Price-to-Earnings ratio compares a stock's price to the profit it makes per share. A high P/E may mean investors expect big future growth; a low P/E may mean undervaluation.",
     "analogy": "If you pay $20 for a pizza stand that earns $1 per day, your P/E is 20 — you'll recoup your investment in 20 days of earnings.",
-    "keywords": ["price to earnings", "valuation multiple", "earnings multiple", "PEG ratio"]
+    "keywords": [
+      "price to earnings",
+      "valuation multiple",
+      "earnings multiple",
+      "PEG ratio"
+    ]
   },
   {
     "term": "Earnings Per Share",
     "slug": "earnings-per-share",
     "eli5": "EPS is a company's total profit divided by the number of shares. It tells you how much money the company earned for each share you own.",
     "analogy": "If a restaurant profits $10,000 and has 1,000 owners, each owner's share of profits is $10 — that's the EPS.",
-    "keywords": ["EPS", "net income", "profit per share", "diluted EPS"]
+    "keywords": [
+      "EPS",
+      "net income",
+      "profit per share",
+      "diluted EPS"
+    ]
   },
   {
     "term": "Short Selling",
     "slug": "short-selling",
     "eli5": "Short selling is borrowing shares, selling them, and hoping the price drops so you can buy them back cheaper and pocket the difference. It's betting a stock will fall.",
     "analogy": "You borrow your neighbour's bike, sell it for $200, wait for the price to drop, buy another for $100, return it, and keep the $100 profit.",
-    "keywords": ["shorting", "short position", "short squeeze", "borrow shares", "bear trade"]
+    "keywords": [
+      "shorting",
+      "short position",
+      "short squeeze",
+      "borrow shares",
+      "bear trade"
+    ]
   },
   {
     "term": "Short Squeeze",
     "slug": "short-squeeze",
     "eli5": "A short squeeze happens when a heavily shorted stock's price starts rising, forcing short sellers to buy shares quickly to limit losses — which drives the price up even faster.",
     "analogy": "Imagine everyone betting it'll rain but the sun comes out — they all rush to buy umbrellas from sellers, making prices shoot up.",
-    "keywords": ["squeeze", "gamma squeeze", "GME", "short interest", "forced buying"]
+    "keywords": [
+      "squeeze",
+      "gamma squeeze",
+      "GME",
+      "short interest",
+      "forced buying"
+    ]
   },
   {
     "term": "Options",
     "slug": "options",
     "eli5": "An option gives you the right, but not the obligation, to buy or sell a stock at a set price before a deadline. They can amplify gains but also losses.",
     "analogy": "Like a reservation at a restaurant — you pay a small fee to hold a table, but you don't have to show up.",
-    "keywords": ["call option", "put option", "strike price", "expiry", "derivatives", "theta", "delta"]
+    "keywords": [
+      "call option",
+      "put option",
+      "strike price",
+      "expiry",
+      "derivatives",
+      "theta",
+      "delta"
+    ]
   },
   {
     "term": "Call Option",
     "slug": "call-option",
     "eli5": "A call option gives you the right to buy a stock at a fixed price before the expiry date. If the stock rises above that price, you profit.",
     "analogy": "You pay $5 to lock in the right to buy a game console for $400. If the price jumps to $600, you exercise your option and save $200.",
-    "keywords": ["call", "buy option", "strike", "in the money", "LEAPS"]
+    "keywords": [
+      "call",
+      "buy option",
+      "strike",
+      "in the money",
+      "LEAPS"
+    ]
   },
   {
     "term": "Put Option",
     "slug": "put-option",
     "eli5": "A put option gives you the right to sell a stock at a fixed price before expiry. It's often used as insurance against a stock you own falling in value.",
     "analogy": "It's like buying home insurance — if your house value drops (floods), you can still sell it at the agreed higher price.",
-    "keywords": ["put", "sell option", "protective put", "hedge", "downside protection"]
+    "keywords": [
+      "put",
+      "sell option",
+      "protective put",
+      "hedge",
+      "downside protection"
+    ]
   },
   {
     "term": "Margin",
     "slug": "margin",
     "eli5": "Margin is money you borrow from your broker to buy more investments than you could with your own cash alone. It amplifies both gains and losses.",
     "analogy": "Like using a credit card to buy stocks — great if prices rise, but you still owe the bank even if prices fall.",
-    "keywords": ["leverage", "margin call", "borrowed money", "margin account", "leveraged trading"]
+    "keywords": [
+      "leverage",
+      "margin call",
+      "borrowed money",
+      "margin account",
+      "leveraged trading"
+    ]
   },
   {
     "term": "Liquidity",
     "slug": "liquidity",
     "eli5": "Liquidity describes how quickly and easily you can convert an investment to cash without affecting its price. Stocks are liquid; real estate is not.",
     "analogy": "Water pours out of a glass instantly — that's high liquidity. Honey pours slowly — that's low liquidity.",
-    "keywords": ["liquid", "illiquid", "trading volume", "bid-ask spread", "cash equivalent"]
+    "keywords": [
+      "liquid",
+      "illiquid",
+      "trading volume",
+      "bid-ask spread",
+      "cash equivalent"
+    ]
   },
   {
     "term": "Asset Allocation",
     "slug": "asset-allocation",
     "eli5": "Asset allocation is how you divide your money among different types of investments — like 60% stocks, 30% bonds, 10% cash — based on your goals and risk tolerance.",
     "analogy": "Like splitting your lunch budget: some on sandwiches (stocks), some on fruit (bonds), and keeping change for snacks (cash).",
-    "keywords": ["portfolio mix", "allocation", "risk tolerance", "rebalancing", "60/40 portfolio"]
+    "keywords": [
+      "portfolio mix",
+      "allocation",
+      "risk tolerance",
+      "rebalancing",
+      "60/40 portfolio"
+    ]
   },
   {
     "term": "Rebalancing",
     "slug": "rebalancing",
     "eli5": "Rebalancing means periodically adjusting your portfolio back to your target allocation after market moves shift the percentages. It enforces buying low and selling high.",
     "analogy": "If your fruit bowl should be half apples and half oranges but apples multiplied, you sell some apples and buy oranges to restore balance.",
-    "keywords": ["portfolio rebalancing", "drift", "target allocation", "systematic rebalancing"]
+    "keywords": [
+      "portfolio rebalancing",
+      "drift",
+      "target allocation",
+      "systematic rebalancing"
+    ]
   },
   {
     "term": "Compound Interest",
     "slug": "compound-interest",
     "eli5": "Compound interest means you earn returns on your original investment AND on the returns you've already earned. Over time, this creates exponential growth.",
     "analogy": "A snowball rolling downhill — it picks up snow (returns on returns) and grows bigger and bigger the longer it rolls.",
-    "keywords": ["compounding", "interest on interest", "CAGR", "exponential growth", "time value"]
+    "keywords": [
+      "compounding",
+      "interest on interest",
+      "CAGR",
+      "exponential growth",
+      "time value"
+    ]
   },
   {
     "term": "Dollar-Cost Averaging",
     "slug": "dollar-cost-averaging",
     "eli5": "DCA means investing a fixed dollar amount on a regular schedule regardless of price. You buy more shares when prices are low and fewer when prices are high.",
     "analogy": "Like buying a coffee every morning — some days it costs more, some less, but over a year your average cost smooths out.",
-    "keywords": ["DCA", "regular investing", "systematic investment", "lump sum vs DCA"]
+    "keywords": [
+      "DCA",
+      "regular investing",
+      "systematic investment",
+      "lump sum vs DCA"
+    ]
   },
   {
     "term": "Inflation",
     "slug": "inflation",
     "eli5": "Inflation is the general rise in prices over time, which means each dollar buys a little less than it used to. Investing helps your money keep up with or beat inflation.",
     "analogy": "If a candy bar cost $0.50 as a kid and now costs $1.50, inflation ate the rest of your dollar's purchasing power.",
-    "keywords": ["CPI", "purchasing power", "real return", "deflation", "stagflation"]
+    "keywords": [
+      "CPI",
+      "purchasing power",
+      "real return",
+      "deflation",
+      "stagflation"
+    ]
   },
   {
     "term": "Risk Tolerance",
     "slug": "risk-tolerance",
     "eli5": "Risk tolerance is how much financial loss or uncertainty you can handle emotionally and financially before you'd panic-sell or lose sleep. It shapes what investments suit you.",
     "analogy": "Roller coasters — some people love the thrill, others prefer the merry-go-round. Your investment ride should match your comfort level.",
-    "keywords": ["risk appetite", "risk capacity", "investor profile", "aggressive", "conservative"]
+    "keywords": [
+      "risk appetite",
+      "risk capacity",
+      "investor profile",
+      "aggressive",
+      "conservative"
+    ]
   },
   {
     "term": "Time Horizon",
     "slug": "time-horizon",
     "eli5": "Your time horizon is how long you plan to keep your money invested before you need it. Longer horizons let you take more risk because you have time to recover from downturns.",
     "analogy": "A marathon runner paces differently from a sprinter — long-term investors can take a steadier, higher-risk route because they have distance on their side.",
-    "keywords": ["investment horizon", "long term", "short term", "retirement planning"]
+    "keywords": [
+      "investment horizon",
+      "long term",
+      "short term",
+      "retirement planning"
+    ]
   },
   {
     "term": "Drawdown",
     "slug": "drawdown",
     "eli5": "A drawdown is the percentage drop from an investment's peak value to its lowest point before recovering. Max drawdown shows the worst loss you'd have experienced.",
     "analogy": "Imagine your savings peaked at $10,000 then fell to $7,000 before recovering — that 30% drop is the drawdown.",
-    "keywords": ["max drawdown", "peak to trough", "underwater", "recovery", "loss"]
+    "keywords": [
+      "max drawdown",
+      "peak to trough",
+      "underwater",
+      "recovery",
+      "loss"
+    ]
   },
   {
     "term": "Expense Ratio",
     "slug": "expense-ratio",
     "eli5": "An expense ratio is the annual fee a fund charges, shown as a percentage. A 0.1% ratio means you pay $1 per year for every $1,000 invested.",
     "analogy": "Like a management fee for your money — the lower it is, the more of your returns you actually keep.",
-    "keywords": ["management fee", "fund costs", "TER", "low cost investing", "Vanguard"]
+    "keywords": [
+      "management fee",
+      "fund costs",
+      "TER",
+      "low cost investing",
+      "Vanguard"
+    ]
   },
   {
     "term": "Hedge Fund",
     "slug": "hedge-fund",
     "eli5": "A hedge fund is a private investment pool for wealthy investors that uses advanced strategies — shorting, leverage, derivatives — to try to make money in any market condition.",
     "analogy": "A hedge fund is like a VIP casino table with higher stakes, fancier strategies, and entry only for those who can afford the minimum buy-in.",
-    "keywords": ["alternative investment", "accredited investor", "long-short", "absolute return"]
+    "keywords": [
+      "alternative investment",
+      "accredited investor",
+      "long-short",
+      "absolute return"
+    ]
   },
   {
     "term": "IPO",
     "slug": "ipo",
     "eli5": "An IPO (Initial Public Offering) is when a private company sells its shares to the public for the first time on a stock exchange. It's the company's stock market debut.",
     "analogy": "Like a band releasing their first album — suddenly everyone can buy a piece of something that was previously invite-only.",
-    "keywords": ["initial public offering", "listing", "going public", "underwriter", "lock-up period"]
+    "keywords": [
+      "initial public offering",
+      "listing",
+      "going public",
+      "underwriter",
+      "lock-up period"
+    ]
   },
   {
     "term": "Cryptocurrency",
     "slug": "cryptocurrency",
     "eli5": "Cryptocurrency is digital money secured by cryptography on a decentralised network. No government or bank controls it; transactions are recorded on a public ledger called a blockchain.",
     "analogy": "Like email replaced physical letters, crypto replaces physical cash — digital, borderless, and controlled by math rather than banks.",
-    "keywords": ["crypto", "Bitcoin", "Ethereum", "blockchain", "DeFi", "altcoin", "BTC", "ETH"]
+    "keywords": [
+      "crypto",
+      "Bitcoin",
+      "Ethereum",
+      "blockchain",
+      "DeFi",
+      "altcoin",
+      "BTC",
+      "ETH"
+    ]
   },
   {
     "term": "Blockchain",
     "slug": "blockchain",
     "eli5": "A blockchain is a shared digital ledger that records transactions in a chain of blocks. Once data is written, it can't be changed, making it tamper-resistant.",
     "analogy": "Like a Google Doc that everyone can read, no one can edit old entries, and millions of computers keep identical copies.",
-    "keywords": ["distributed ledger", "decentralised", "immutable", "consensus", "smart contract"]
+    "keywords": [
+      "distributed ledger",
+      "decentralised",
+      "immutable",
+      "consensus",
+      "smart contract"
+    ]
   },
   {
     "term": "Stablecoin",
     "slug": "stablecoin",
     "eli5": "A stablecoin is a cryptocurrency designed to keep a steady value — usually pegged to the US dollar — so it doesn't swing wildly like Bitcoin.",
     "analogy": "It's the boring, reliable cousin of Bitcoin — digital dollars that aim to always be worth $1.",
-    "keywords": ["USDC", "USDT", "Tether", "peg", "fiat-backed", "algorithmic stablecoin"]
+    "keywords": [
+      "USDC",
+      "USDT",
+      "Tether",
+      "peg",
+      "fiat-backed",
+      "algorithmic stablecoin"
+    ]
   },
   {
     "term": "Yield",
     "slug": "yield",
     "eli5": "Yield is the income an investment generates expressed as a percentage of its price. A bond yielding 5% pays you $5 per year for every $100 invested.",
     "analogy": "Like the rent yield on a house — if you bought for $200,000 and collect $10,000 in rent per year, your yield is 5%.",
-    "keywords": ["bond yield", "dividend yield", "yield to maturity", "current yield", "APY"]
+    "keywords": [
+      "bond yield",
+      "dividend yield",
+      "yield to maturity",
+      "current yield",
+      "APY"
+    ]
   },
   {
     "term": "Capital Gains",
     "slug": "capital-gains",
     "eli5": "A capital gain is the profit you make when you sell an investment for more than you paid. Short-term gains (held less than a year) are usually taxed more than long-term gains.",
     "analogy": "You buy a rare sneaker for $100 and sell it for $250 — the $150 profit is your capital gain.",
-    "keywords": ["CGT", "realized gain", "unrealized gain", "long-term capital gains", "tax loss harvesting"]
+    "keywords": [
+      "CGT",
+      "realized gain",
+      "unrealized gain",
+      "long-term capital gains",
+      "tax loss harvesting"
+    ]
   },
   {
     "term": "Recession",
     "slug": "recession",
     "eli5": "A recession is a significant decline in economic activity lasting at least two consecutive quarters. Jobs are lost, businesses slow down, and consumer spending falls.",
     "analogy": "Like a restaurant that used to be packed but now sits half-empty for months — fewer customers, staff cutbacks, and tighter budgets all around.",
-    "keywords": ["economic downturn", "GDP decline", "unemployment", "contraction", "depression"]
+    "keywords": [
+      "economic downturn",
+      "GDP decline",
+      "unemployment",
+      "contraction",
+      "depression"
+    ]
   },
   {
     "term": "Fed Funds Rate",
     "slug": "fed-funds-rate",
     "eli5": "The Fed Funds Rate is the interest rate at which US banks lend money to each other overnight. The Federal Reserve sets it to control inflation and stimulate or cool the economy.",
     "analogy": "Think of it as the price of renting money — when the Fed raises it, borrowing becomes more expensive for everyone.",
-    "keywords": ["federal reserve", "interest rate", "monetary policy", "rate hike", "rate cut", "FOMC"]
+    "keywords": [
+      "federal reserve",
+      "interest rate",
+      "monetary policy",
+      "rate hike",
+      "rate cut",
+      "FOMC"
+    ]
+  },
+  {
+    "term": "SIP (Systematic Investment Plan)",
+    "slug": "sip",
+    "eli5": "A Systematic Investment Plan (SIP) is a disciplined way to invest a fixed amount of money regularly (e.g., monthly) into mutual funds or stocks, rather than investing a huge lump sum all at once.",
+    "analogy": "Like a gym routine for your savings — instead of trying to bench-press 300 lbs on day one, you build financial muscle bit by bit every single month.",
+    "keywords": [
+      "sip",
+      "systematic investment plan",
+      "monthly investment",
+      "dca",
+      "recurring investment",
+      "auto invest",
+      "periodic plan"
+    ]
+  },
+  {
+    "term": "NAV (Net Asset Value)",
+    "slug": "net-asset-value",
+    "eli5": "Net Asset Value (NAV) is the market value of one unit of a mutual fund or ETF, calculated daily by subtracting total liabilities from total assets and dividing by outstanding units.",
+    "analogy": "Counting all the cash in a piggy bank and dividing it by the number of coins inside to find the exact value of each coin slice.",
+    "keywords": [
+      "nav",
+      "net asset value",
+      "fund unit price",
+      "book value",
+      "per unit value"
+    ]
+  },
+  {
+    "term": "ROI (Return on Investment)",
+    "slug": "roi",
+    "eli5": "Return on Investment (ROI) measures how much money you gained or lost relative to what you originally invested, expressed as a percentage.",
+    "analogy": "Planting 1 apple seed and harvesting 5 juicy apples from the tree — those extra 4 apples represent your return on the seed.",
+    "keywords": [
+      "roi",
+      "return on investment",
+      "gain",
+      "profitability",
+      "percentage return",
+      "yield"
+    ]
+  },
+  {
+    "term": "FOMO (Fear Of Missing Out)",
+    "slug": "fomo",
+    "eli5": "FOMO is the psychological urge to buy a skyrocketing asset because you see others boasting about massive profits and dread being left behind.",
+    "analogy": "Seeing a huge crowd run screaming into a store and joining the stampede without knowing what is even on sale.",
+    "keywords": [
+      "fomo",
+      "hype",
+      "impulse buying",
+      "panic buying",
+      "fear of missing out",
+      "meme stock"
+    ]
+  },
+  {
+    "term": "HODL",
+    "slug": "hodl",
+    "eli5": "HODL is investor slang for refusing to sell your assets during sharp market crashes, committing to hold them long-term through thick and thin.",
+    "analogy": "Staying securely strapped into your rollercoaster seat during a vertical drop rather than trying to jump off mid-loop.",
+    "keywords": [
+      "hodl",
+      "hold on for dear life",
+      "diamond hands",
+      "long term hold",
+      "crypto slang"
+    ]
+  },
+  {
+    "term": "Stop-Loss",
+    "slug": "stop-loss",
+    "eli5": "A stop-loss is an automated order placed with your broker to sell an investment if its price drops to a predetermined level, capping your maximum loss.",
+    "analogy": "An emergency brake on a runaway train — if the train starts rolling backward down a cliff, the brakes lock before you crash.",
+    "keywords": [
+      "stop loss",
+      "stop order",
+      "downside protection",
+      "risk management",
+      "exit plan"
+    ]
+  },
+  {
+    "term": "APY (Annual Percentage Yield)",
+    "slug": "apy",
+    "eli5": "Annual Percentage Yield (APY) is the real yearly rate of return earned on an investment or savings account, factoring in the boost from compounding interest.",
+    "analogy": "The true speed reading of how quickly your bank balance naturally multiplies over a full 12-month calendar year.",
+    "keywords": [
+      "apy",
+      "annual percentage yield",
+      "interest yield",
+      "savings rate",
+      "apr",
+      "effective interest"
+    ]
+  },
+  {
+    "term": "Support",
+    "slug": "support",
+    "eli5": "Support is a price floor where a declining stock tends to stop dropping and bounce back up, because eager buyers step in to purchase at that attractive price.",
+    "analogy": "Like a trampoline beneath a bouncing ball — every time the ball drops down and hits the trampoline, it gets propelled back upward.",
+    "keywords": [
+      "support",
+      "price floor",
+      "support level",
+      "bounce",
+      "demand zone"
+    ]
+  },
+  {
+    "term": "Resistance",
+    "slug": "resistance",
+    "eli5": "Resistance is a price ceiling where an advancing stock struggles to climb higher, because sellers rush in to lock in profits, creating heavy downward selling pressure.",
+    "analogy": "Like a glass ceiling in an attic — you can jump as hard as you want, but your head knocks against the barrier until momentum breaks through.",
+    "keywords": [
+      "resistance",
+      "price ceiling",
+      "resistance level",
+      "supply zone",
+      "sell wall"
+    ]
+  },
+  {
+    "term": "Area of Interest",
+    "slug": "area-of-interest",
+    "eli5": "An Area of Interest (AOI) is a critical price zone on a chart where historical trading activity, support, or resistance suggests major buying or selling will take place.",
+    "analogy": "Like a busy highway toll booth or airport terminal — you know that is where all the traffic converges and key action will happen.",
+    "keywords": [
+      "area of interest",
+      "aoi",
+      "key level",
+      "confluence zone",
+      "reversal zone"
+    ]
+  },
+  {
+    "term": "Technical Analysis",
+    "slug": "technical-analysis",
+    "eli5": "Technical analysis is the practice of evaluating investments by studying past market statistics, price movements, and chart patterns rather than business balance sheets.",
+    "analogy": "Studying the flight radar and weather patterns of an airplane to predict its landing time rather than inspecting the airline's corporate headquarters.",
+    "keywords": [
+      "technical analysis",
+      "charting",
+      "price action",
+      "indicators",
+      "candlestick"
+    ]
   }
 ]

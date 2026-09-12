@@ -223,11 +223,41 @@ export async function explainTerm(term: string): Promise<GlossaryTerm> {
 
   if (match) return match;
 
+  if (clean === 'sip' || clean.includes('systematic investment')) {
+    return {
+      term: 'SIP (Systematic Investment Plan)',
+      slug: 'sip',
+      eli5: 'A Systematic Investment Plan (SIP) is a disciplined way to invest a fixed amount regularly into stocks or mutual funds instead of a single lump sum.',
+      analogy: 'Like a gym routine for your savings — building financial strength consistently month after month.',
+      source: 'fallback',
+    };
+  }
+
+  if (clean === 'dca' || clean.includes('dollar cost')) {
+    return {
+      term: 'DCA (Dollar-Cost Averaging)',
+      slug: 'dca',
+      eli5: 'Dollar-Cost Averaging means investing a fixed dollar amount on a regular schedule regardless of whether prices are up or down.',
+      analogy: 'Like buying groceries every week — your overall cost per unit averages out comfortably over time.',
+      source: 'fallback',
+    };
+  }
+
+  if (clean.includes('ratio') || clean.includes('margin') || clean.includes('yield')) {
+    return {
+      term,
+      slug: clean.replace(/\s+/g, '-'),
+      eli5: `${term} is a comparative financial metric used to evaluate an asset's efficiency, valuation, or health relative to its peers.`,
+      analogy: `Think of ${term} like a fuel-efficiency sticker (mpg) on a car — it lets you compare options side by side.`,
+      source: 'fallback',
+    };
+  }
+
   return {
     term,
     slug: clean.replace(/\s+/g, '-'),
-    eli5: `${term} is a financial metric that helps investors measure how an investment behaves and how its price fluctuates.`,
-    analogy: `Think of ${term} like checking the weather before heading outside so you know what gear to bring.`,
+    eli5: `${term} is an investing concept that helps market participants evaluate risk, understand market behavior, or structure their finances.`,
+    analogy: `Think of ${term} like a compass reading on a hike — it gives you clear bearings and perspective so you make deliberate moves.`,
     source: 'fallback',
   };
 }
