@@ -1,0 +1,282 @@
+﻿[
+  {
+    "term": "P/E Ratio",
+    "slug": "pe-ratio",
+    "eli5": "The P/E ratio tells you how much investors are willing to pay for every dollar a company earns. If a company earns $1 and its stock costs $20, the P/E ratio is 20 — meaning people are paying $20 for each $1 of profit.",
+    "analogy": "It's like paying $20 for a lemonade stand that makes $1 per day — you're betting it'll keep growing.",
+    "keywords": ["price-to-earnings", "price earnings ratio", "PE", "valuation multiple"]
+  },
+  {
+    "term": "Beta",
+    "slug": "beta",
+    "eli5": "Beta measures how much a stock moves compared to the overall market. A beta of 2 means if the market goes up 1%, the stock tends to go up 2% — but also falls twice as hard.",
+    "analogy": "Think of beta like a volume knob — a high-beta stock turns market moves way up, while a low-beta stock keeps things quiet.",
+    "keywords": ["market sensitivity", "volatility relative to market", "systematic risk"]
+  },
+  {
+    "term": "Expense Ratio",
+    "slug": "expense-ratio",
+    "eli5": "The expense ratio is the annual fee a fund charges you, expressed as a percentage of your investment. A 1% expense ratio means for every $1,000 you invest, the fund takes $10 per year to cover its costs.",
+    "analogy": "It's like a management fee your landlord charges for running an apartment complex — it comes out of your returns automatically.",
+    "keywords": ["fund fee", "management fee", "annual fee", "total expense ratio", "TER"]
+  },
+  {
+    "term": "Market Cap",
+    "slug": "market-cap",
+    "eli5": "Market cap is the total value of a company's stock — calculated by multiplying the share price by the total number of shares. It tells you the size of the company in the eyes of investors.",
+    "analogy": "If every share of Apple is a piece of a pie and each slice costs $170, market cap is the total price of the whole pie.",
+    "keywords": ["market capitalization", "company size", "valuation", "float"]
+  },
+  {
+    "term": "Volatility",
+    "slug": "volatility",
+    "eli5": "Volatility measures how wildly a stock's price swings up and down over time. High volatility means big, unpredictable price jumps; low volatility means the price moves slowly and steadily.",
+    "analogy": "A roller coaster has high volatility — a long flat highway road trip has low volatility.",
+    "keywords": ["price swings", "standard deviation", "fluctuation", "variance", "implied volatility"]
+  },
+  {
+    "term": "Drawdown",
+    "slug": "drawdown",
+    "eli5": "A drawdown is how much an investment has fallen from its peak value before recovering. If your portfolio hit $10,000 then dropped to $7,000, that's a 30% drawdown.",
+    "analogy": "Imagine hiking to the top of a hill, then sliding partway down before climbing back up — the slide is the drawdown.",
+    "keywords": ["peak-to-trough", "maximum drawdown", "loss from peak", "decline"]
+  },
+  {
+    "term": "ETF (Exchange-Traded Fund)",
+    "slug": "etf",
+    "eli5": "An ETF is a basket of many stocks or bonds bundled together that you can buy and sell on the stock market like a single share. Instead of buying Apple, Microsoft, and Google separately, you can buy one ETF that owns all of them.",
+    "analogy": "It's like buying a sampler platter at a restaurant — you get a little bit of everything instead of committing to just one dish.",
+    "keywords": ["exchange-traded fund", "fund", "basket of stocks", "index ETF", "ETF"]
+  },
+  {
+    "term": "Yield",
+    "slug": "yield",
+    "eli5": "Yield is the income you earn from an investment, shown as a percentage of what you paid. A 5% yield on a $1,000 bond means you receive $50 per year in interest.",
+    "analogy": "Yield is like the interest rate on a savings account — it tells you how much your money is paying you just to sit there.",
+    "keywords": ["dividend yield", "interest rate", "return", "income", "coupon"]
+  },
+  {
+    "term": "Liquidity",
+    "slug": "liquidity",
+    "eli5": "Liquidity describes how quickly and easily you can turn an investment into cash without losing much value. Cash is perfectly liquid; a house is very illiquid because it takes months to sell.",
+    "analogy": "Water is liquid — it pours instantly. Ice (illiquid) takes time and heat to turn back into something you can use.",
+    "keywords": ["liquid assets", "cash equivalent", "tradability", "market depth", "bid-ask spread"]
+  },
+  {
+    "term": "Diversification",
+    "slug": "diversification",
+    "eli5": "Diversification means spreading your money across many different investments so that if one fails, it doesn't wipe you out. It's the investing version of not putting all your eggs in one basket.",
+    "analogy": "If you own 10 lemonade stands in different neighborhoods, one bad rainstorm can't ruin your whole business.",
+    "keywords": ["spreading risk", "portfolio diversification", "asset mix", "don't put all eggs in one basket"]
+  },
+  {
+    "term": "Bull Market",
+    "slug": "bull-market",
+    "eli5": "A bull market is a period when stock prices are rising and investors feel optimistic about the economy. It's generally defined as a 20% or more rise from a recent low.",
+    "analogy": "A bull charges forward with energy — a bull market is the stock market charging upward with momentum.",
+    "keywords": ["rising market", "uptrend", "market rally", "bullish"]
+  },
+  {
+    "term": "Bear Market",
+    "slug": "bear-market",
+    "eli5": "A bear market is when stock prices fall 20% or more from their recent peak and investors are pessimistic. It can last months or even years before prices recover.",
+    "analogy": "A bear swipes downward with its paw — a bear market is the stock market swiping prices down.",
+    "keywords": ["falling market", "downtrend", "market crash", "bearish", "correction"]
+  },
+  {
+    "term": "Index Fund",
+    "slug": "index-fund",
+    "eli5": "An index fund automatically copies a market index like the S&P 500, buying every stock in that index. Instead of a manager picking stocks, the fund just follows the index passively, keeping costs very low.",
+    "analogy": "It's like a copycat student who copies the top student's answers — the index fund just copies the market's homework.",
+    "keywords": ["passive fund", "S&P 500 fund", "market index", "tracker fund", "passive investing"]
+  },
+  {
+    "term": "Dividend",
+    "slug": "dividend",
+    "eli5": "A dividend is a portion of a company's profits paid out directly to shareholders, usually every quarter. If you own 100 shares of a company that pays a $0.50 dividend, you receive $50 just for owning the stock.",
+    "analogy": "It's like being a partial owner of a pizza shop and getting a check in the mail every time the shop makes good money.",
+    "keywords": ["dividend payment", "income", "distribution", "yield", "payout"]
+  },
+  {
+    "term": "Spread",
+    "slug": "spread",
+    "eli5": "The spread is the difference between the price buyers are willing to pay (bid) and the price sellers are asking for (ask). A wider spread means higher trading costs; a narrow spread means the market is very efficient.",
+    "analogy": "It's like a currency exchange booth at an airport — they buy your dollars at a low price and sell at a higher one, keeping the difference.",
+    "keywords": ["bid-ask spread", "bid price", "ask price", "trading cost", "market spread"]
+  },
+  {
+    "term": "Short Selling",
+    "slug": "short-selling",
+    "eli5": "Short selling is when you borrow shares, sell them hoping the price drops, then buy them back cheaper and return them — keeping the difference as profit. It's a way to bet that a stock will go down.",
+    "analogy": "Imagine borrowing your friend's old iPhone 12, selling it for $400 today, then buying it back for $300 when newer models come out and pocketing the $100 difference.",
+    "keywords": ["shorting", "short position", "short squeeze", "borrow and sell", "selling short"]
+  },
+  {
+    "term": "Hedge",
+    "slug": "hedge",
+    "eli5": "A hedge is an investment made specifically to reduce the risk of another investment going wrong. It's like insurance — you pay a small cost now to protect yourself from a bigger loss later.",
+    "analogy": "Buying an umbrella before you go on a picnic is a hedge against rain ruining your day.",
+    "keywords": ["hedging", "risk management", "protection", "insurance", "offset risk"]
+  },
+  {
+    "term": "Portfolio",
+    "slug": "portfolio",
+    "eli5": "Your portfolio is the collection of all the investments you own — stocks, bonds, ETFs, crypto, and anything else. Think of it as your personal investment team roster.",
+    "analogy": "A portfolio is like your music playlist — it's the combination of all your favorite songs (investments) that you've chosen together.",
+    "keywords": ["investment portfolio", "holdings", "assets", "investment collection"]
+  },
+  {
+    "term": "Asset Allocation",
+    "slug": "asset-allocation",
+    "eli5": "Asset allocation is how you divide your money among different types of investments like stocks, bonds, and cash. It's one of the most important decisions you can make because it determines your overall risk level.",
+    "analogy": "It's like deciding how to split a meal — 60% main course (stocks), 30% side dish (bonds), 10% dessert (alternatives).",
+    "keywords": ["allocation", "portfolio mix", "asset class mix", "investment split", "60/40 portfolio"]
+  },
+  {
+    "term": "Rebalancing",
+    "slug": "rebalancing",
+    "eli5": "Rebalancing is when you adjust your portfolio back to your original plan after prices shift it off course. If stocks grew so much they now make up 80% of your portfolio instead of the planned 60%, you sell some stocks and buy more bonds to get back to 60/40.",
+    "analogy": "It's like trimming overgrown plants in a garden — you cut back what's gotten too big to keep the whole garden balanced.",
+    "keywords": ["portfolio rebalancing", "rebalance", "portfolio adjustment", "drift correction"]
+  },
+  {
+    "term": "Dollar-Cost Averaging",
+    "slug": "dollar-cost-averaging",
+    "eli5": "Dollar-cost averaging means investing a fixed amount of money at regular intervals, regardless of the price. This way you automatically buy more shares when prices are low and fewer when prices are high.",
+    "analogy": "It's like filling up your gas tank every Monday no matter the price — sometimes you get a great deal, sometimes not, but it evens out over time.",
+    "keywords": ["DCA", "regular investing", "systematic investing", "automatic investing", "dollar cost averaging"]
+  },
+  {
+    "term": "Compound Interest",
+    "slug": "compound-interest",
+    "eli5": "Compound interest means you earn interest on both your original money AND on the interest you've already earned. Over time, this creates a snowball effect where your money grows faster and faster.",
+    "analogy": "It's like a snowball rolling down a hill — it picks up more snow as it goes, getting bigger and bigger the longer it rolls.",
+    "keywords": ["compounding", "compound growth", "interest on interest", "exponential growth", "time value of money"]
+  },
+  {
+    "term": "Risk Tolerance",
+    "slug": "risk-tolerance",
+    "eli5": "Risk tolerance is how much loss or uncertainty you can handle emotionally and financially without panic-selling your investments. Someone with high risk tolerance can watch their portfolio drop 40% and stay calm; low risk tolerance means losses keep them up at night.",
+    "analogy": "It's like choosing a roller coaster at an amusement park — some people love the biggest, scariest drop, others prefer the gentle family ride.",
+    "keywords": ["risk appetite", "risk capacity", "investor profile", "risk assessment"]
+  },
+  {
+    "term": "Stock Split",
+    "slug": "stock-split",
+    "eli5": "A stock split is when a company divides its existing shares into more shares, making each share cheaper. If Apple does a 4-for-1 split, every one $400 share becomes four $100 shares — you own more shares but the total value stays the same.",
+    "analogy": "It's like cutting a pizza into 8 slices instead of 4 — more slices, but the same amount of pizza overall.",
+    "keywords": ["stock split", "share split", "reverse split", "share division"]
+  },
+  {
+    "term": "IPO (Initial Public Offering)",
+    "slug": "ipo",
+    "eli5": "An IPO is when a private company sells shares to the public for the very first time on a stock exchange. It's how companies raise money from everyday investors and how you first get the chance to buy a piece of a company like that.",
+    "analogy": "An IPO is like a restaurant opening its doors to the public for the first time — previously only insiders could eat there, now anyone can walk in.",
+    "keywords": ["IPO", "initial public offering", "going public", "public offering", "listing"]
+  },
+  {
+    "term": "Earnings Per Share (EPS)",
+    "slug": "eps",
+    "eli5": "EPS tells you how much profit a company made for each share of stock outstanding. If a company earned $1 billion and has 500 million shares, the EPS is $2 — meaning each share represents $2 of profit.",
+    "analogy": "If a class sells 100 cookies for $200 total profit, each cookie's 'EPS' is $2 — it's each cookie's share of the profit.",
+    "keywords": ["EPS", "earnings per share", "profit per share", "diluted EPS", "basic EPS"]
+  },
+  {
+    "term": "Return on Equity (ROE)",
+    "slug": "roe",
+    "eli5": "ROE shows how good a company is at turning shareholders' money into profit. A 20% ROE means for every $100 investors put in, the company generates $20 of profit — higher is generally better.",
+    "analogy": "It's like knowing how good a baker is at turning flour and ingredients (equity) into delicious profit-making cakes.",
+    "keywords": ["ROE", "return on equity", "profitability ratio", "shareholder return"]
+  },
+  {
+    "term": "Debt-to-Equity Ratio",
+    "slug": "debt-to-equity-ratio",
+    "eli5": "The debt-to-equity ratio compares how much debt a company has versus how much equity (shareholder money) it uses. A ratio of 2 means the company borrowed $2 for every $1 of equity — higher ratios mean more financial risk.",
+    "analogy": "It's like buying a house with 80% mortgage and 20% down payment — you're heavily leveraged, which is riskier but lets you buy more.",
+    "keywords": ["D/E ratio", "leverage", "debt ratio", "financial leverage", "gearing"]
+  },
+  {
+    "term": "Price-to-Book Ratio",
+    "slug": "price-to-book-ratio",
+    "eli5": "The price-to-book ratio compares what investors pay for a stock to the actual accounting value of the company's assets. A P/B of 3 means you're paying $3 for every $1 of assets the company actually owns.",
+    "analogy": "It's like paying $30,000 for a used car that the book says is worth $10,000 — you're betting the car's brand and reputation make it worth more.",
+    "keywords": ["P/B ratio", "price to book", "book value", "PB ratio"]
+  },
+  {
+    "term": "Moving Average",
+    "slug": "moving-average",
+    "eli5": "A moving average smooths out a stock's price history by averaging prices over a set period, like the last 50 or 200 days. It helps you see the overall trend by filtering out daily noise and wild swings.",
+    "analogy": "It's like averaging your grades over a semester instead of just looking at one test score — you see the real trend, not just a bad day.",
+    "keywords": ["MA", "SMA", "EMA", "simple moving average", "exponential moving average", "50-day MA", "200-day MA"]
+  },
+  {
+    "term": "Support Level",
+    "slug": "support-level",
+    "eli5": "A support level is a price where a stock has repeatedly stopped falling and bounced back up. Traders watch these levels because they suggest buyers tend to step in around that price to prevent further declines.",
+    "analogy": "It's like a trampoline at the bottom — every time the ball hits that level, it bounces back up.",
+    "keywords": ["support", "support zone", "floor price", "price support", "technical analysis"]
+  },
+  {
+    "term": "Resistance Level",
+    "slug": "resistance-level",
+    "eli5": "A resistance level is a price where a stock has repeatedly struggled to rise above. It's like a ceiling — sellers tend to show up in force at that price, pushing the price back down each time it tries to break through.",
+    "analogy": "Imagine trying to push a bowling ball up a steep hill to a specific mark — it keeps rolling back down at that same spot every time.",
+    "keywords": ["resistance", "resistance zone", "ceiling price", "price resistance", "technical analysis"]
+  },
+  {
+    "term": "Volume",
+    "slug": "volume",
+    "eli5": "Volume is the number of shares of a stock traded during a given period. High volume means lots of people are buying or selling, which usually means stronger conviction behind a price move.",
+    "analogy": "Volume is like the crowd noise at a concert — the louder (higher) the crowd, the more people are paying attention and participating.",
+    "keywords": ["trading volume", "shares traded", "market volume", "volume spike"]
+  },
+  {
+    "term": "Market Order",
+    "slug": "market-order",
+    "eli5": "A market order is an instruction to buy or sell a stock immediately at whatever the current price is. You trade instantly but might not get the exact price you saw on screen because prices move constantly.",
+    "analogy": "A market order is like walking up to a street food cart and saying 'I'll take whatever you're selling at whatever price' — fast, but no price guarantee.",
+    "keywords": ["market order", "instant order", "buy market", "sell market", "execute immediately"]
+  },
+  {
+    "term": "Limit Order",
+    "slug": "limit-order",
+    "eli5": "A limit order lets you set the maximum price you'll pay to buy or the minimum price you'll accept to sell. Your order only executes if the market hits your specified price.",
+    "analogy": "It's like telling a used car dealer 'I'll only buy this car if you can get the price down to $15,000 — not a penny more.'",
+    "keywords": ["limit order", "price limit", "buy limit", "sell limit", "GTC order"]
+  },
+  {
+    "term": "Stop-Loss Order",
+    "slug": "stop-loss-order",
+    "eli5": "A stop-loss order automatically sells your stock if the price falls to a level you set, limiting your losses. It's like a safety net that kicks in before your losses get too big.",
+    "analogy": "It's like setting an alarm that automatically turns off the stove if the temperature gets too high — protecting you from a bigger disaster.",
+    "keywords": ["stop loss", "stop order", "trailing stop", "risk management", "loss limit"]
+  },
+  {
+    "term": "Margin",
+    "slug": "margin",
+    "eli5": "Trading on margin means borrowing money from your broker to buy more investments than you could afford with your own cash alone. It amplifies gains — but also losses, and you pay interest on what you borrow.",
+    "analogy": "It's like using a credit card to buy stocks — you can buy more, but if prices fall you still owe the full borrowed amount plus interest.",
+    "keywords": ["margin trading", "leverage", "margin account", "borrowed money", "margin call"]
+  },
+  {
+    "term": "Options",
+    "slug": "options",
+    "eli5": "Options are contracts that give you the right (but not the obligation) to buy or sell a stock at a specific price by a certain date. They can be used to protect investments or to speculate on price moves with less money upfront.",
+    "analogy": "An option is like a coupon that says 'you can buy this TV for $500 anytime in the next 30 days' — you don't have to use it, but you have the right to.",
+    "keywords": ["options", "call option", "put option", "derivatives", "contract", "strike price", "expiration"]
+  },
+  {
+    "term": "Futures",
+    "slug": "futures",
+    "eli5": "Futures are contracts to buy or sell something at a specific price on a specific future date, and unlike options, you are obligated to complete the trade. They're used by farmers, airlines, and investors to lock in prices and manage risk.",
+    "analogy": "A futures contract is like a farmer agreeing today to sell 1,000 bushels of wheat in December at $6 per bushel — locking in the price regardless of what happens.",
+    "keywords": ["futures contract", "commodities futures", "futures trading", "derivatives", "forward contract"]
+  },
+  {
+    "term": "Inflation",
+    "slug": "inflation",
+    "eli5": "Inflation is the gradual increase in prices over time, which means your money buys less than it used to. If inflation is 3% per year, something that costs $100 today will cost $103 next year.",
+    "analogy": "Inflation is like a slow hole in your wallet — every year, a little bit of your money's buying power leaks out if you don't invest it.",
+    "keywords": ["inflation rate", "CPI", "purchasing power", "price increase", "cost of living", "deflation"]
+  }
+]

@@ -1,0 +1,27 @@
+{
+  "feature_names": [
+    "annualized_vol",
+    "beta_vs_spy",
+    "max_drawdown_1yr",
+    "log_market_cap",
+    "sector_encoded",
+    "avg_volume_zscore"
+  ],
+  "mean": [
+    0.28,
+    1.05,
+    -0.19,
+    24.8,
+    5.0,
+    0.0
+  ],
+  "std": [
+    0.15,
+    0.45,
+    0.12,
+    1.8,
+    3.2,
+    1.0
+  ],
+  "_note": "Trained feature standardization parameters for MoneyMind Risk Radar"
+}
