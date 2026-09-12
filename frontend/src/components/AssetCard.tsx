@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ArrowUpRight, ArrowDownRight, Compass } from 'lucide-react';
 import { Asset } from '../types';
 import { SparklineChart } from './SparklineChart';
+import { CandlestickChart } from './CandlestickChart';
 import { RiskGauge } from './RiskGauge';
 import { HypeBadge } from './HypeBadge';
 import { JargonTooltip } from './JargonTooltip';
@@ -26,6 +27,7 @@ export const AssetCard: React.FC<AssetCardProps> = ({ asset, onSimulate }) => {
   );
   const [isLastKnownPrice, setIsLastKnownPrice] = useState<boolean>(false);
   const [isChartComingSoon, setIsChartComingSoon] = useState<boolean>(false);
+  const [chartType, setChartType] = useState<'candles' | 'line'>('candles');
 
   // References to keep track of last successful values
   const lastKnownPriceRef = useRef<number>(asset.price);
@@ -180,30 +182,64 @@ export const AssetCard: React.FC<AssetCardProps> = ({ asset, onSimulate }) => {
           </div>
         </div>
 
-        {/* 7-Day Sparkline */}
-        <div className="my-2 bg-gray-50/50 rounded-2xl p-2 border border-gray-50">
-          <div className="flex items-center justify-between text-[10px] text-gray-400 font-medium mb-1 px-1">
+        {/* 7-Day Trend: Candlestick or Line */}
+        <div className="my-2 bg-gray-50/60 rounded-2xl p-2.5 border border-gray-100">
+          <div className="flex items-center justify-between text-[10px] text-gray-400 font-medium mb-1.5 px-1">
             <span className="flex items-center gap-1.5">
-              <span>7-Day Trend</span>
+              <span className="font-semibold text-gray-600">
+                {chartType === 'candles' ? 'Candlesticks' : '7-Day Trend'}
+              </span>
               {isLastKnownPrice && (
                 <span className="text-amber-600 text-[9px] font-medium bg-amber-50 px-1.5 py-0.2 rounded border border-amber-200">
-                  showing last known price
+                  last known
                 </span>
               )}
             </span>
-            {!isChartComingSoon && sparklineData.length >= 2 && (
-              <span className="font-mono">
-                ${sparklineData[0]?.toFixed(1)} → ${sparklineData[sparklineData.length - 1]?.toFixed(1)}
-              </span>
-            )}
+
+            <div className="flex items-center gap-2">
+              {!isChartComingSoon && sparklineData.length >= 2 && (
+                <span className="font-mono text-[10px] text-gray-500">
+                  ${sparklineData[0]?.toFixed(1)} → ${sparklineData[sparklineData.length - 1]?.toFixed(1)}
+                </span>
+              )}
+              {/* Candlestick vs Line Toggle */}
+              <div className="flex items-center bg-gray-200/80 p-0.5 rounded-lg text-[9px] font-bold">
+                <button
+                  type="button"
+                  onClick={() => setChartType('candles')}
+                  className={`px-1.5 py-0.5 rounded transition-all ${
+                    chartType === 'candles'
+                      ? 'bg-white text-emerald-700 shadow-xs'
+                      : 'text-gray-500 hover:text-gray-900'
+                  }`}
+                  title="Candlestick Chart (Open / High / Low / Close)"
+                >
+                  Candles
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setChartType('line')}
+                  className={`px-1.5 py-0.5 rounded transition-all ${
+                    chartType === 'line'
+                      ? 'bg-white text-emerald-700 shadow-xs'
+                      : 'text-gray-500 hover:text-gray-900'
+                  }`}
+                  title="Line Trend Area Chart"
+                >
+                  Line
+                </button>
+              </div>
+            </div>
           </div>
 
           {isChartComingSoon || sparklineData.length < 2 ? (
             <div className="h-12 flex items-center justify-center text-xs text-gray-400 font-medium italic">
               chart coming soon
             </div>
+          ) : chartType === 'candles' ? (
+            <CandlestickChart data={sparklineData} currentPrice={currentPrice} height={50} />
           ) : (
-            <SparklineChart data={sparklineData} isPositive={isPositive} height={48} />
+            <SparklineChart data={sparklineData} isPositive={isPositive} height={50} />
           )}
         </div>
 
