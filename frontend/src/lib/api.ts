@@ -4,6 +4,113 @@ import glossaryData from '../data/glossary.json';
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
+// ── CoinGecko Mapping & Caching ─────────────────────────────
+export const CRYPTO_COINGECKO_MAP: Record<string, string> = {
+  BTC: 'bitcoin',
+  ETH: 'ethereum',
+  DOGE: 'dogecoin',
+  SOL: 'solana',
+  ADA: 'cardano',
+  XRP: 'ripple',
+};
+
+export function getCoinGeckoId(ticker: string): string {
+  const upper = ticker.toUpperCase();
+  return CRYPTO_COINGECKO_MAP[upper] || ticker.toLowerCase();
+}
+
+interface PriceCacheEntry {
+  price: number;
+  change24h: number;
+  timestamp: number;
+}
+const cryptoPriceCache = new Map<string, PriceCacheEntry>();
+const cryptoChartCache = new Map<string, { data: number[]; timestamp: number }>();
+
+export async function fetchCryptoLivePrice(coingeckoId: string): Promise<{ price: number; change24h: number } | null> {
+  const now = Date.now();
+  const cached = cryptoPriceCache.get(coingeckoId);
+  if (cached && now - cached.timestamp < 30000) {
+    return { price: cached.price, change24h: cached.change24h };
+  }
+
+  try {
+    const url = `https://api.coingecko.com/api/v3/simple/price?ids=${encodeURIComponent(coingeckoId)}&vs_currencies=usd&include_24hr_change=true`;
+    const res = await fetch(url, { signal: AbortSignal.timeout(5000) });
+    if (!res.ok) return null;
+    const data = await res.json();
+    const info = data[coingeckoId];
+    if (info && typeof info.usd === 'number') {
+      const entry: PriceCacheEntry = {
+        price: info.usd,
+        change24h: typeof info.usd_24h_change === 'number' ? Math.round(info.usd_24h_change * 100) / 100 : 0,
+        timestamp: now,
+      };
+      cryptoPriceCache.set(coingeckoId, entry);
+      return { price: entry.price, change24h: entry.change24h };
+    }
+  } catch {
+    // Return null on failure/rate limit
+  }
+  return null;
+}
+
+export async function fetchCryptoMarketChart7d(coingeckoId: string): Promise<number[] | null> {
+  const now = Date.now();
+  const cached = cryptoChartCache.get(coingeckoId);
+  if (cached && now - cached.timestamp < 300000) {
+    return cached.data;
+  }
+
+  try {
+    const url = `https://api.coingecko.com/api/v3/coins/${encodeURIComponent(coingeckoId)}/market_chart?vs_currency=usd&days=7`;
+    const res = await fetch(url, { signal: AbortSignal.timeout(6000) });
+    if (!res.ok) return null;
+    const json = await res.json();
+    if (Array.isArray(json.prices) && json.prices.length > 0) {
+      const rawPrices: number[] = json.prices.map((p: [number, number]) => p[1]);
+      const step = Math.max(1, Math.floor(rawPrices.length / 28));
+      const sampled: number[] = [];
+      for (let i = 0; i < rawPrices.length; i += step) {
+        sampled.push(Math.round(rawPrices[i] * 100) / 100);
+      }
+      if (sampled[sampled.length - 1] !== rawPrices[rawPrices.length - 1]) {
+        sampled.push(Math.round(rawPrices[rawPrices.length - 1] * 100) / 100);
+      }
+      cryptoChartCache.set(coingeckoId, { data: sampled, timestamp: now });
+      return sampled;
+    }
+  } catch {
+    // Return null on failure/rate limit
+  }
+  return null;
+}
+
+export async function fetchStockLivePrice(ticker: string): Promise<{
+  price: number;
+  change24h: number;
+  priceHistory7d?: number[];
+  isFallback: boolean;
+} | null> {
+  try {
+    const res = await fetch(`${API_BASE}/api/price/${encodeURIComponent(ticker)}`, {
+      signal: AbortSignal.timeout(5000),
+    });
+    if (res.ok) {
+      const data = await res.json();
+      return {
+        price: data.price,
+        change24h: data.change24h,
+        priceHistory7d: data.priceHistory7d || data.priceHistory,
+        isFallback: !!data.is_fallback,
+      };
+    }
+  } catch {
+    // Fallback handled by caller
+  }
+  return null;
+}
+
 export async function fetchAllAssets(): Promise<Asset[]> {
   try {
     const res = await fetch(`${API_BASE}/price/all`, { signal: AbortSignal.timeout(3000) });

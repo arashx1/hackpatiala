@@ -148,6 +148,7 @@ app.include_router(risk.router, prefix="/risk-score", tags=["Risk"])
 app.include_router(hype.router, prefix="/hype-score", tags=["Hype"])
 app.include_router(coach.router, prefix="/coach", tags=["Coach"])
 app.include_router(price.router, prefix="/price", tags=["Price"])
+app.include_router(price.router, prefix="/api/price", tags=["Price"])
 
 
 # ---------------------------------------------------------------------------

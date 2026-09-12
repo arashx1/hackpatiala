@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ArrowUpRight, ArrowDownRight, Compass } from 'lucide-react';
 import { Asset } from '../types';
 import { SparklineChart } from './SparklineChart';
 import { RiskGauge } from './RiskGauge';
 import { HypeBadge } from './HypeBadge';
 import { JargonTooltip } from './JargonTooltip';
+import {
+  getCoinGeckoId,
+  fetchCryptoLivePrice,
+  fetchCryptoMarketChart7d,
+  fetchStockLivePrice,
+} from '../lib/api';
 
 interface AssetCardProps {
   asset: Asset;
@@ -12,7 +18,125 @@ interface AssetCardProps {
 }
 
 export const AssetCard: React.FC<AssetCardProps> = ({ asset, onSimulate }) => {
-  const isPositive = asset.change24h >= 0;
+  // Live price & change state with failsafe fallback to asset props
+  const [currentPrice, setCurrentPrice] = useState<number>(asset.price);
+  const [currentChange24h, setCurrentChange24h] = useState<number>(asset.change24h);
+  const [sparklineData, setSparklineData] = useState<number[]>(
+    asset.priceHistory?.slice(-7) || asset.priceHistory || []
+  );
+  const [isLastKnownPrice, setIsLastKnownPrice] = useState<boolean>(false);
+  const [isChartComingSoon, setIsChartComingSoon] = useState<boolean>(false);
+
+  // References to keep track of last successful values
+  const lastKnownPriceRef = useRef<number>(asset.price);
+  const lastKnownChangeRef = useRef<number>(asset.change24h);
+  const lastKnownSparklineRef = useRef<number[]>(
+    asset.priceHistory?.slice(-7) || asset.priceHistory || []
+  );
+
+  const isCrypto = asset.type === 'crypto';
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadLiveData() {
+      if (isCrypto) {
+        // ── Crypto Live Fetch (CoinGecko) ───────────────────────────
+        const coingeckoId = getCoinGeckoId(asset.ticker);
+
+        // 1. Fetch live price & 24h change
+        const priceRes = await fetchCryptoLivePrice(coingeckoId);
+        if (!isMounted) return;
+
+        if (priceRes && typeof priceRes.price === 'number' && priceRes.price > 0) {
+          setCurrentPrice(priceRes.price);
+          setCurrentChange24h(priceRes.change24h);
+          lastKnownPriceRef.current = priceRes.price;
+          lastKnownChangeRef.current = priceRes.change24h;
+          setIsLastKnownPrice(false);
+        } else {
+          // Failsafe: fall back to last successfully fetched or initial price
+          setCurrentPrice(lastKnownPriceRef.current);
+          setCurrentChange24h(lastKnownChangeRef.current);
+          setIsLastKnownPrice(true);
+        }
+
+        // 2. Fetch 7-day sparkline from CoinGecko /market_chart
+        const chartRes = await fetchCryptoMarketChart7d(coingeckoId);
+        if (!isMounted) return;
+
+        if (chartRes && chartRes.length >= 2) {
+          setSparklineData(chartRes);
+          lastKnownSparklineRef.current = chartRes;
+          setIsChartComingSoon(false);
+        } else if (lastKnownSparklineRef.current.length >= 2) {
+          setSparklineData(lastKnownSparklineRef.current);
+          setIsChartComingSoon(false);
+        } else {
+          setIsChartComingSoon(true);
+        }
+      } else {
+        // ── Stock / ETF Live Fetch (Backend Route /api/price/{symbol}) ─
+        const stockRes = await fetchStockLivePrice(asset.ticker);
+        if (!isMounted) return;
+
+        if (stockRes && typeof stockRes.price === 'number' && stockRes.price > 0) {
+          setCurrentPrice(stockRes.price);
+          setCurrentChange24h(stockRes.change24h);
+          lastKnownPriceRef.current = stockRes.price;
+          lastKnownChangeRef.current = stockRes.change24h;
+          setIsLastKnownPrice(stockRes.isFallback);
+
+          if (stockRes.priceHistory7d && stockRes.priceHistory7d.length >= 2) {
+            setSparklineData(stockRes.priceHistory7d);
+            lastKnownSparklineRef.current = stockRes.priceHistory7d;
+            setIsChartComingSoon(false);
+          } else if (lastKnownSparklineRef.current.length >= 2) {
+            setSparklineData(lastKnownSparklineRef.current);
+            setIsChartComingSoon(false);
+          } else {
+            setIsChartComingSoon(true);
+          }
+        } else {
+          // Failsafe fallback
+          setCurrentPrice(lastKnownPriceRef.current);
+          setCurrentChange24h(lastKnownChangeRef.current);
+          setIsLastKnownPrice(true);
+          if (lastKnownSparklineRef.current.length >= 2) {
+            setSparklineData(lastKnownSparklineRef.current);
+            setIsChartComingSoon(false);
+          } else {
+            setIsChartComingSoon(true);
+          }
+        }
+      }
+    }
+
+    // Initial fetch on mount
+    loadLiveData();
+
+    // Poll every 45 seconds (within 30-60s requirement)
+    const interval = setInterval(() => {
+      loadLiveData();
+    }, 45000);
+
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
+  }, [asset.ticker, asset.type, isCrypto]);
+
+  const isPositive = currentChange24h >= 0;
+
+  const handleSimulateClick = () => {
+    // Pass real live price to Decision Coach
+    onSimulate({
+      ...asset,
+      price: currentPrice,
+      change24h: currentChange24h,
+      priceHistory: sparklineData.length > 0 ? sparklineData : asset.priceHistory,
+    });
+  };
 
   return (
     <div className="group bg-white rounded-3xl p-5 border border-gray-100/90 shadow-sm hover:shadow-xl hover:border-emerald-200/70 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
@@ -39,7 +163,7 @@ export const AssetCard: React.FC<AssetCardProps> = ({ asset, onSimulate }) => {
           {/* Price & Change */}
           <div className="text-right">
             <div className="font-bold text-base text-gray-900 font-mono">
-              ${asset.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              ${currentPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </div>
             <div
               className={`inline-flex items-center text-xs font-semibold ${
@@ -51,20 +175,36 @@ export const AssetCard: React.FC<AssetCardProps> = ({ asset, onSimulate }) => {
               ) : (
                 <ArrowDownRight className="w-3.5 h-3.5" />
               )}
-              <span>{Math.abs(asset.change24h).toFixed(2)}%</span>
+              <span>{Math.abs(currentChange24h).toFixed(2)}%</span>
             </div>
           </div>
         </div>
 
-        {/* 30-Day Sparkline */}
+        {/* 7-Day Sparkline */}
         <div className="my-2 bg-gray-50/50 rounded-2xl p-2 border border-gray-50">
           <div className="flex items-center justify-between text-[10px] text-gray-400 font-medium mb-1 px-1">
-            <span>30-Day Trend</span>
-            <span className="font-mono">
-              ${asset.priceHistory[0]?.toFixed(1)} → ${asset.priceHistory[asset.priceHistory.length - 1]?.toFixed(1)}
+            <span className="flex items-center gap-1.5">
+              <span>7-Day Trend</span>
+              {isLastKnownPrice && (
+                <span className="text-amber-600 text-[9px] font-medium bg-amber-50 px-1.5 py-0.2 rounded border border-amber-200">
+                  showing last known price
+                </span>
+              )}
             </span>
+            {!isChartComingSoon && sparklineData.length >= 2 && (
+              <span className="font-mono">
+                ${sparklineData[0]?.toFixed(1)} → ${sparklineData[sparklineData.length - 1]?.toFixed(1)}
+              </span>
+            )}
           </div>
-          <SparklineChart data={asset.priceHistory} isPositive={isPositive} height={48} />
+
+          {isChartComingSoon || sparklineData.length < 2 ? (
+            <div className="h-12 flex items-center justify-center text-xs text-gray-400 font-medium italic">
+              chart coming soon
+            </div>
+          ) : (
+            <SparklineChart data={sparklineData} isPositive={isPositive} height={48} />
+          )}
         </div>
 
         {/* Neural Network Badges: Risk Radar + Hype Detector */}
@@ -73,7 +213,7 @@ export const AssetCard: React.FC<AssetCardProps> = ({ asset, onSimulate }) => {
           <HypeBadge score={asset.hypeScore} label={asset.hypeLabel} size="sm" />
         </div>
 
-        {/* Jargon-Buster Metics Strip */}
+        {/* Jargon-Buster Metrics Strip */}
         <div className="grid grid-cols-3 gap-1 py-2 px-3 rounded-2xl bg-gray-50/70 text-[11px] text-gray-600 my-2">
           <div>
             <span className="block text-[10px] text-gray-400">
@@ -106,7 +246,7 @@ export const AssetCard: React.FC<AssetCardProps> = ({ asset, onSimulate }) => {
 
       {/* CTA: Simulate Invest with Decision Coach */}
       <button
-        onClick={() => onSimulate(asset)}
+        onClick={handleSimulateClick}
         className="mt-3 w-full py-2.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white text-xs font-bold transition-all shadow-sm hover:shadow-emerald-200 flex items-center justify-center gap-1.5"
       >
         <Compass className="w-4 h-4" />
