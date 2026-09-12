@@ -7,13 +7,17 @@ import { Dashboard } from './pages/Dashboard';
 import { GlossaryPage } from './pages/GlossaryPage';
 import { SimulationHistoryPage } from './pages/SimulationHistoryPage';
 import { DocumentReaderPage } from './pages/DocumentReaderPage';
+import { AuthPage } from './pages/AuthPage';
 import { DecisionCoachModal } from './components/DecisionCoachModal';
 import { ModelLabModal } from './components/ModelLabModal';
+import { AuthProvider } from './context/AuthContext';
 
-export const App: React.FC = () => {
+export const AppContent: React.FC = () => {
   const [assets, setAssets] = useState<Asset[]>([]);
   const [loadingAssets, setLoadingAssets] = useState(true);
-  const [currentTab, setCurrentTab] = useState<'dashboard' | 'glossary' | 'history' | 'document'>('dashboard');
+  const [currentTab, setCurrentTab] = useState<
+    'dashboard' | 'glossary' | 'history' | 'document' | 'auth'
+  >('dashboard');
   const [profile, setProfile] = useState<UserFitnessProfile>(loadFitnessProfile());
   const [selectedSimAsset, setSelectedSimAsset] = useState<Asset | null>(null);
   const [isModelLabOpen, setIsModelLabOpen] = useState(false);
@@ -25,6 +29,7 @@ export const App: React.FC = () => {
       if (hash === 'glossary') setCurrentTab('glossary');
       else if (hash === 'history') setCurrentTab('history');
       else if (hash === 'document') setCurrentTab('document');
+      else if (hash === 'auth') setCurrentTab('auth');
       else setCurrentTab('dashboard');
     };
 
@@ -33,7 +38,9 @@ export const App: React.FC = () => {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-  const handleSelectTab = (tab: 'dashboard' | 'glossary' | 'history' | 'document') => {
+  const handleSelectTab = (
+    tab: 'dashboard' | 'glossary' | 'history' | 'document' | 'auth'
+  ) => {
     setCurrentTab(tab);
     window.location.hash = tab === 'dashboard' ? '' : `#${tab}`;
   };
@@ -59,7 +66,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8fafb] text-gray-900 flex flex-col font-sans selection:bg-emerald-100 selection:text-emerald-900">
+    <div className="min-h-screen bg-[#f8fafb] text-gray-900 flex flex-col font-sans selection:bg-amber-100 selection:text-amber-900">
       {/* Top Navigation */}
       <Navbar
         currentTab={currentTab}
@@ -72,8 +79,10 @@ export const App: React.FC = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 flex-1 w-full">
         {loadingAssets ? (
           <div className="py-24 text-center text-xs text-gray-400 flex flex-col items-center justify-center gap-3">
-            <div className="w-8 h-8 border-3 border-emerald-600 border-t-transparent rounded-full animate-spin"></div>
-            <p className="font-semibold text-gray-600">Bootstrapping MoneyMind neural networks and assets...</p>
+            <div className="w-8 h-8 border-3 border-amber-500 border-t-transparent rounded-full animate-spin"></div>
+            <p className="font-semibold text-gray-600">
+              Bootstrapping FundBee neural networks and live assets...
+            </p>
           </div>
         ) : (
           <>
@@ -90,6 +99,10 @@ export const App: React.FC = () => {
             {currentTab === 'glossary' && <GlossaryPage />}
 
             {currentTab === 'document' && <DocumentReaderPage />}
+
+            {currentTab === 'auth' && (
+              <AuthPage onSuccessRedirect={() => handleSelectTab('dashboard')} />
+            )}
 
             {currentTab === 'history' && (
               <SimulationHistoryPage
@@ -121,19 +134,38 @@ export const App: React.FC = () => {
       <footer className="mt-auto border-t border-gray-100 bg-white py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-400">
           <p>
-            &copy; {new Date().getFullYear()} <strong>MoneyMind</strong> &bull; Google Developer Groups &ldquo;Bit N Build&rdquo; Hackathon Submission.
+            &copy; {new Date().getFullYear()} <strong>FundBee</strong> &bull; Mind Over Money &bull; AI Investing Literacy.
           </p>
           <div className="flex items-center gap-4 text-[11px]">
-            <button onClick={() => setIsModelLabOpen(true)} className="hover:text-gray-700 underline underline-offset-2">
+            <button
+              onClick={() => setIsModelLabOpen(true)}
+              className="hover:text-gray-700 underline underline-offset-2"
+            >
               Inspect ML Models (ONNX)
             </button>
             <span>&bull;</span>
-            <a href="#document" onClick={() => handleSelectTab('document')} className="hover:text-gray-700">
+            <a
+              href="#document"
+              onClick={() => handleSelectTab('document')}
+              className="hover:text-gray-700"
+            >
               Document Reader
             </a>
             <span>&bull;</span>
-            <a href="#glossary" onClick={() => handleSelectTab('glossary')} className="hover:text-gray-700">
+            <a
+              href="#glossary"
+              onClick={() => handleSelectTab('glossary')}
+              className="hover:text-gray-700"
+            >
               Glossary
+            </a>
+            <span>&bull;</span>
+            <a
+              href="#auth"
+              onClick={() => handleSelectTab('auth')}
+              className="hover:text-gray-700 font-medium"
+            >
+              Supabase Account
             </a>
             <span>&bull;</span>
             <span className="text-emerald-600 font-bold">Zero Real Money Ever At Risk</span>
@@ -141,6 +173,14 @@ export const App: React.FC = () => {
         </div>
       </footer>
     </div>
+  );
+};
+
+export const App: React.FC = () => {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   );
 };
 

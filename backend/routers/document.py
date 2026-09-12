@@ -91,7 +91,7 @@ async def _summarize_with_gemini(text: str, filename: str) -> Optional[dict[str,
         model = genai.GenerativeModel("gemini-1.5-flash")
 
         prompt = (
-            "You are the MoneyMind Document Reader — a financial literacy assistant for beginner investors.\n"
+            "You are the FundBee Document Reader — a financial literacy assistant for beginner investors.\n"
             f"Analyze the following financial document ({filename}) and explain it clearly in plain English.\n\n"
             "Rules:\n"
             "1. summary: Exactly 2-3 plain-English sentences summarizing what this document says with zero financial jargon. Focus on what happened and why it matters.\n"

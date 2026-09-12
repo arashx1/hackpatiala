@@ -176,7 +176,7 @@ export const DocumentReaderPage: React.FC = () => {
 
   const handleCopySummary = () => {
     if (!result) return;
-    const textToCopy = `MoneyMind Document Summary: ${result.filename}
+    const textToCopy = `FundBee Document Summary: ${result.filename}
     
 SUMMARY:
 ${result.summary}

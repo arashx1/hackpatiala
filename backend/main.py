@@ -120,7 +120,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
 # App factory
 # ---------------------------------------------------------------------------
 app = FastAPI(
-    title="MoneyMind API",
+    title="FundBee API",
     description="Financial literacy backend — risk scoring, hype detection, and coaching.",
     version="0.1.0",
     lifespan=lifespan,
@@ -159,7 +159,7 @@ app.include_router(document.router, prefix="/api/document", tags=["Document"])
 @app.get("/", tags=["Meta"])
 async def root() -> dict[str, str]:
     """API root — basic identification."""
-    return {"name": "MoneyMind API", "version": "0.1.0", "status": "running"}
+    return {"name": "FundBee API", "version": "0.1.0", "status": "running"}
 
 
 @app.get("/health", tags=["Meta"])

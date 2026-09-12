@@ -65,7 +65,7 @@ async def _ask_gemini_coach(req: CoachEvaluateRequest) -> Optional[dict[str, Any
         model = genai.GenerativeModel("gemini-1.5-flash")
 
         prompt = (
-            f"You are the 'MoneyMind Decision Coach' — an empathetic, wise investing tutor helping a first-time investor.\n"
+            f"You are the 'FundBee Decision Coach' — an empathetic, wise investing tutor helping a first-time investor.\n"
             f"Asset: {req.ticker} ({req.asset_name or req.ticker})\n"
             f"Intended Paper Investment: ${req.amount:,.2f}\n"
             f"User Stated Risk Tolerance: {req.user_risk_tolerance}\n"
