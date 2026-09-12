@@ -110,3 +110,14 @@ export interface UserFitnessProfile {
   history: FitnessLogEntry[];
   trades: SimulationTrade[];
 }
+
+export interface DocumentSummaryResult {
+  filename: string;
+  file_type: string;
+  word_count: number;
+  truncated: boolean;
+  summary: string;
+  key_fact: string;
+  takeaway: string;
+  source: string;
+}

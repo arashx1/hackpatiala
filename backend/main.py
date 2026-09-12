@@ -141,7 +141,7 @@ app.add_middleware(
 # ---------------------------------------------------------------------------
 # Routers
 # ---------------------------------------------------------------------------
-from routers import coach, explain, hype, price, risk  # noqa: E402
+from routers import coach, document, explain, hype, price, risk  # noqa: E402
 
 app.include_router(explain.router, prefix="/explain", tags=["Explain"])
 app.include_router(risk.router, prefix="/risk-score", tags=["Risk"])
@@ -149,6 +149,8 @@ app.include_router(hype.router, prefix="/hype-score", tags=["Hype"])
 app.include_router(coach.router, prefix="/coach", tags=["Coach"])
 app.include_router(price.router, prefix="/price", tags=["Price"])
 app.include_router(price.router, prefix="/api/price", tags=["Price"])
+app.include_router(document.router, prefix="/document", tags=["Document"])
+app.include_router(document.router, prefix="/api/document", tags=["Document"])
 
 
 # ---------------------------------------------------------------------------

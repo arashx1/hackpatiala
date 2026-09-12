@@ -6,13 +6,14 @@ import { Navbar } from './components/Navbar';
 import { Dashboard } from './pages/Dashboard';
 import { GlossaryPage } from './pages/GlossaryPage';
 import { SimulationHistoryPage } from './pages/SimulationHistoryPage';
+import { DocumentReaderPage } from './pages/DocumentReaderPage';
 import { DecisionCoachModal } from './components/DecisionCoachModal';
 import { ModelLabModal } from './components/ModelLabModal';
 
 export const App: React.FC = () => {
   const [assets, setAssets] = useState<Asset[]>([]);
   const [loadingAssets, setLoadingAssets] = useState(true);
-  const [currentTab, setCurrentTab] = useState<'dashboard' | 'glossary' | 'history'>('dashboard');
+  const [currentTab, setCurrentTab] = useState<'dashboard' | 'glossary' | 'history' | 'document'>('dashboard');
   const [profile, setProfile] = useState<UserFitnessProfile>(loadFitnessProfile());
   const [selectedSimAsset, setSelectedSimAsset] = useState<Asset | null>(null);
   const [isModelLabOpen, setIsModelLabOpen] = useState(false);
@@ -23,6 +24,7 @@ export const App: React.FC = () => {
       const hash = window.location.hash.replace('#', '');
       if (hash === 'glossary') setCurrentTab('glossary');
       else if (hash === 'history') setCurrentTab('history');
+      else if (hash === 'document') setCurrentTab('document');
       else setCurrentTab('dashboard');
     };
 
@@ -31,7 +33,7 @@ export const App: React.FC = () => {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-  const handleSelectTab = (tab: 'dashboard' | 'glossary' | 'history') => {
+  const handleSelectTab = (tab: 'dashboard' | 'glossary' | 'history' | 'document') => {
     setCurrentTab(tab);
     window.location.hash = tab === 'dashboard' ? '' : `#${tab}`;
   };
@@ -87,6 +89,8 @@ export const App: React.FC = () => {
 
             {currentTab === 'glossary' && <GlossaryPage />}
 
+            {currentTab === 'document' && <DocumentReaderPage />}
+
             {currentTab === 'history' && (
               <SimulationHistoryPage
                 profile={profile}
@@ -123,6 +127,10 @@ export const App: React.FC = () => {
             <button onClick={() => setIsModelLabOpen(true)} className="hover:text-gray-700 underline underline-offset-2">
               Inspect ML Models (ONNX)
             </button>
+            <span>&bull;</span>
+            <a href="#document" onClick={() => handleSelectTab('document')} className="hover:text-gray-700">
+              Document Reader
+            </a>
             <span>&bull;</span>
             <a href="#glossary" onClick={() => handleSelectTab('glossary')} className="hover:text-gray-700">
               Glossary

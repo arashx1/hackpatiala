@@ -1,4 +1,11 @@
-import { Asset, CoachEvaluation, GlossaryTerm, HypeAssessment, RiskAssessment } from '../types';
+import {
+  Asset,
+  CoachEvaluation,
+  DocumentSummaryResult,
+  GlossaryTerm,
+  HypeAssessment,
+  RiskAssessment,
+} from '../types';
 import seedAssets from '../data/seed_assets.json';
 import glossaryData from '../data/glossary.json';
 
@@ -346,4 +353,37 @@ export async function evaluateDecisionWithCoach(params: {
     fitness_impact_preview: +6,
     source: 'client_fallback',
   };
+}
+
+export async function summarizeDocument(file: File): Promise<DocumentSummaryResult> {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  try {
+    const res = await fetch(`${API_BASE}/api/document/summarize`, {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!res.ok) {
+      let errMsg = 'Failed to analyze document';
+      try {
+        const errorJson = await res.json();
+        if (errorJson && errorJson.detail) {
+          errMsg = errorJson.detail;
+        }
+      } catch {
+        errMsg = `Server error (${res.status}): ${res.statusText}`;
+      }
+      throw new Error(errMsg);
+    }
+
+    const data: DocumentSummaryResult = await res.json();
+    return data;
+  } catch (err: any) {
+    if (err.name === 'AbortError' || (err.message && err.message.includes('timeout'))) {
+      throw new Error('Analysis timed out. The document might be large, please try again.');
+    }
+    throw err;
+  }
 }

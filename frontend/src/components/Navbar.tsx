@@ -1,10 +1,10 @@
 import React from 'react';
-import { Compass, BookOpen, History, Cpu, Zap } from 'lucide-react';
+import { Compass, BookOpen, History, FileText, Cpu, Zap } from 'lucide-react';
 import { UserFitnessProfile } from '../types';
 
 interface NavbarProps {
-  currentTab: 'dashboard' | 'glossary' | 'history';
-  onSelectTab: (tab: 'dashboard' | 'glossary' | 'history') => void;
+  currentTab: 'dashboard' | 'glossary' | 'history' | 'document';
+  onSelectTab: (tab: 'dashboard' | 'glossary' | 'history' | 'document') => void;
   onOpenModelLab: () => void;
   profile: UserFitnessProfile;
 }
@@ -65,6 +65,18 @@ export const Navbar: React.FC<NavbarProps> = ({
           </button>
 
           <button
+            onClick={() => onSelectTab('document')}
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+              currentTab === 'document'
+                ? 'bg-white text-gray-900 shadow-xs'
+                : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
+            }`}
+          >
+            <FileText className="w-3.5 h-3.5" />
+            <span>Document Reader</span>
+          </button>
+
+          <button
             onClick={() => onSelectTab('history')}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
               currentTab === 'history'
@@ -121,7 +133,13 @@ export const Navbar: React.FC<NavbarProps> = ({
           onClick={() => onSelectTab('glossary')}
           className={`px-3 py-1 rounded-lg ${currentTab === 'glossary' ? 'bg-white text-emerald-700 shadow-xs' : ''}`}
         >
-          Jargon-Buster
+          Glossary
+        </button>
+        <button
+          onClick={() => onSelectTab('document')}
+          className={`px-3 py-1 rounded-lg ${currentTab === 'document' ? 'bg-white text-emerald-700 shadow-xs' : ''}`}
+        >
+          Doc Reader
         </button>
         <button
           onClick={() => onSelectTab('history')}
@@ -133,3 +151,4 @@ export const Navbar: React.FC<NavbarProps> = ({
     </header>
   );
 };
+
