@@ -1,12 +1,201 @@
-﻿@tailwind base;
+@import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700&family=Archivo:wght@400;500;600;700&display=swap');
+
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: 'Inter', sans-serif;
-  background-color: #f8fafb;
+/* ─── Base ─────────────────────────────────────────────────────── */
+:root {
+  --color-ink:    #181D1F;
+  --color-ink-60: #424647;
+  --color-ink-40: #7d7d87;
+  --color-coral:  #FD956D;
+  --color-cream:  #EAE4DC;
+  --color-cream-lt: #F8F4EF;
+  --color-sky:    #15aeea;
+  --color-bg:     #ffffff;
 }
 
-* {
-  box-sizing: border-box;
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Gabarito', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Typography ────────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Gabarito', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: #181D1F;
+}
+
+p, span, div {
+  font-family: 'Archivo', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.font-gabarito { font-family: 'Gabarito', -apple-system, BlinkMacSystemFont, sans-serif !important; }
+.font-archivo  { font-family: 'Archivo',  -apple-system, BlinkMacSystemFont, sans-serif !important; }
+
+/* ─── Scrollbar ─────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #c8c8ce; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #a0a0a8; }
+
+/* ─── Focus ─────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-sky);
+  outline-offset: 2px;
+}
+
+/* ─── Reasonal-style card ───────────────────────────────────────── */
+.r-card {
+  background: #ffffff;
+  border: 1px solid #E7E7E9;
+  border-radius: 16px;
+  box-shadow: 0 4px 22px rgba(116,130,151,0.10);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.r-card:hover {
+  box-shadow: 0 8px 32px rgba(116,130,151,0.16);
+  transform: translateY(-2px);
+}
+
+/* ─── Reasonal-style pill button (dark) ────────────────────────── */
+.r-btn-dark {
+  background-color: #181D1F;
+  color: #ffffff;
+  border-radius: 32px;
+  padding: 12px 24px;
+  font-family: 'Gabarito', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.r-btn-dark:hover { background-color: #232930; }
+.r-btn-dark:active { background-color: #3A4248; }
+
+/* ─── Reasonal-style pill button (outline) ─────────────────────── */
+.r-btn-outline {
+  background-color: transparent;
+  color: #181D1F;
+  border: 1.5px solid #424647;
+  border-radius: 32px;
+  padding: 11px 22px;
+  font-family: 'Gabarito', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.r-btn-outline:hover {
+  background-color: rgba(24,29,31,0.06);
+}
+
+/* ─── Reasonal-style coral/orange accent pill ──────────────────── */
+.r-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  border-radius: 32px;
+  font-family: 'Archivo', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ─── Smooth page animations ───────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.45s cubic-bezier(0,0,0.2,1) both;
+}
+
+.animate-fade-up-delay-1 { animation-delay: 0.08s; }
+.animate-fade-up-delay-2 { animation-delay: 0.16s; }
+.animate-fade-up-delay-3 { animation-delay: 0.24s; }
+.animate-fade-up-delay-4 { animation-delay: 0.32s; }
+
+@keyframes shimmer {
+  from { background-position: -200% center; }
+  to   { background-position:  200% center; }
+}
+
+/* ─── Reasonal hero gradient text ──────────────────────────────── */
+.hero-gradient-text {
+  background: linear-gradient(135deg, #181D1F 0%, #424647 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.coral-gradient-text {
+  background: linear-gradient(135deg, #FD956D 0%, #e07840 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Nav frosted glass ─────────────────────────────────────────── */
+.nav-glass {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(231, 231, 233, 0.8);
+}
+
+/* ─── Section dividers ──────────────────────────────────────────── */
+.section-label {
+  font-family: 'Archivo', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #7d7d87;
+}
+
+/* ─── Pastel feature card backgrounds (Reasonal style) ─────────── */
+.bg-pastel-coral  { background-color: #FDDBCE; }
+.bg-pastel-sage   { background-color: #D5E2DA; }
+.bg-pastel-sky    { background-color: #DCEEEF; }
+.bg-pastel-plum   { background-color: #D7CEF0; }
+.bg-pastel-lime   { background-color: #E4EED2; }
+.bg-pastel-blush  { background-color: #F4E1E1; }
+.bg-pastel-peach  { background-color: #F6E7CF; }
+.bg-pastel-cream  { background-color: #EAE4DC; }
+
+/* ─── Risk/Hype score rings ─────────────────────────────────────── */
+.score-ring {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Gabarito', sans-serif;
+  font-weight: 700;
+  font-size: 13px;
 }

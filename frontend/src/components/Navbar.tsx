@@ -1,167 +1,125 @@
-import React from 'react';
-import {
-  Compass,
-  BookOpen,
-  History,
-  FileText,
-  Cpu,
-  Zap,
-  LogIn,
-  LogOut,
-  User as UserIcon,
-} from 'lucide-react';
+﻿import React, { useState } from 'react';
+import { Flame, LogIn, LogOut, Menu, X } from 'lucide-react';
 import { UserFitnessProfile } from '../types';
 import { useAuth } from '../context/AuthContext';
 
 interface NavbarProps {
-  currentTab: 'dashboard' | 'glossary' | 'history' | 'document' | 'auth';
-  onSelectTab: (tab: 'dashboard' | 'glossary' | 'history' | 'document' | 'auth') => void;
-  onOpenModelLab: () => void;
+  currentTab: 'home' | 'dashboard' | 'glossary' | 'history' | 'document' | 'auth';
+  onSelectTab: (tab: 'home' | 'dashboard' | 'glossary' | 'history' | 'document' | 'auth') => void;
   profile: UserFitnessProfile;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({
-  currentTab,
-  onSelectTab,
-  onOpenModelLab,
-  profile,
-}) => {
-  const { user, signOut } = useAuth();
+const NAV_LINKS: { id: 'dashboard' | 'hype' | 'glossary' | 'document' | 'history'; label: string }[] = [
+  { id: 'dashboard', label: 'Markets' },
+  { id: 'hype',      label: '🔥 Hype Checker' },
+  { id: 'glossary',  label: 'Jargon-Buster' },
+  { id: 'document',  label: 'Doc Reader' },
+  { id: 'history',   label: 'Sim History' },
+];
 
-  const handleSignOut = async () => {
-    await signOut();
-  };
+export const Navbar: React.FC<NavbarProps> = ({ currentTab, onSelectTab }) => {
+  const { user, signOut } = useAuth();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const userDisplayName =
-    user?.user_metadata?.full_name ||
+    user?.fullName ||
     user?.email?.split('@')[0] ||
     'Investor';
 
+  const handleNavClick = (id: string) => {
+    if (id === 'hype') {
+      if (currentTab !== 'dashboard') {
+        onSelectTab('dashboard');
+      }
+      setTimeout(() => {
+        const el = document.getElementById('hype-checker');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 100);
+      return;
+    }
+    onSelectTab(id as any);
+  };
+
   return (
-    <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-        {/* Logo and Brand: FundBee */}
-        <div
-          className="flex items-center gap-3 cursor-pointer select-none"
+    <header className="sticky top-0 z-50 nav-glass">
+      <div className="max-w-[1200px] mx-auto px-6 h-[74px] flex items-center justify-between gap-6">
+
+        {/* ── Logo ── */}
+        <button
           onClick={() => onSelectTab('dashboard')}
+          className="flex items-center gap-2.5 select-none shrink-0 cursor-pointer"
         >
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-500 via-emerald-600 to-teal-500 flex items-center justify-center text-white shadow-md shadow-amber-200/50 text-xl font-black">
-            <span>🐝</span>
+          <div
+            className="w-9 h-9 rounded-[12px] flex items-center justify-center text-white text-lg font-black shadow-sm"
+            style={{ background: '#FD956D' }}
+          >
+            🐝
           </div>
-          <div>
-            <div className="flex items-center gap-1.5">
-              <h1 className="font-black text-xl text-gray-900 tracking-tight leading-none">
-                Fund<span className="text-amber-500">Bee</span>
-              </h1>
-              <span className="text-[10px] font-extrabold uppercase tracking-widest px-1.5 py-0.5 rounded bg-amber-100 text-amber-800">
-                Beta
-              </span>
-            </div>
-            <span className="text-[11px] text-gray-500 font-medium block">
-              Smart Investing &bull; AI Financial Literacy
+          <div className="flex flex-col leading-none text-left">
+            <span
+              className="text-[20px] font-semibold tracking-[-0.5px]"
+              style={{ fontFamily: 'Gabarito, sans-serif', color: '#181D1F' }}
+            >
+              Fund<span style={{ color: '#FD956D' }}>Bee</span>
+            </span>
+            <span
+              className="text-[10px] font-medium uppercase tracking-[0.1em]"
+              style={{ fontFamily: 'Archivo, sans-serif', color: '#7d7d87' }}
+            >
+              Mind Over Money
             </span>
           </div>
-        </div>
+        </button>
 
-        {/* Center Nav Tabs */}
-        <nav className="hidden md:flex items-center gap-1 bg-gray-100/80 p-1 rounded-2xl">
-          <button
-            onClick={() => onSelectTab('dashboard')}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-              currentTab === 'dashboard'
-                ? 'bg-white text-gray-900 shadow-xs'
-                : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
-            }`}
-          >
-            <Compass className="w-3.5 h-3.5" />
-            <span>Dashboard</span>
-          </button>
-
-          <button
-            onClick={() => onSelectTab('glossary')}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-              currentTab === 'glossary'
-                ? 'bg-white text-gray-900 shadow-xs'
-                : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
-            }`}
-          >
-            <BookOpen className="w-3.5 h-3.5" />
-            <span>Jargon-Buster</span>
-          </button>
-
-          <button
-            onClick={() => onSelectTab('document')}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-              currentTab === 'document'
-                ? 'bg-white text-gray-900 shadow-xs'
-                : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
-            }`}
-          >
-            <FileText className="w-3.5 h-3.5" />
-            <span>Document Reader</span>
-          </button>
-
-          <button
-            onClick={() => onSelectTab('history')}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
-              currentTab === 'history'
-                ? 'bg-white text-gray-900 shadow-xs'
-                : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
-            }`}
-          >
-            <History className="w-3.5 h-3.5" />
-            <span>Simulation Log</span>
-          </button>
+        {/* ── Center Nav (desktop) ── */}
+        <nav className="hidden md:flex items-center gap-1">
+          {NAV_LINKS.map((link) => (
+            <button
+              key={link.id}
+              onClick={() => handleNavClick(link.id)}
+              className={`px-4 py-2 rounded-full text-[14px] transition-colors font-archivo cursor-pointer ${
+                currentTab === link.id
+                  ? 'bg-[#181D1F] text-white font-semibold'
+                  : 'text-[#424647] hover:bg-[rgba(24,29,31,0.07)] hover:text-[#181D1F]'
+              }`}
+            >
+              {link.label}
+            </button>
+          ))}
         </nav>
 
-        {/* Right Actions: ML Model Lab, Fitness, Supabase Auth */}
-        <div className="flex items-center gap-2">
-          {/* ML Model Lab for Judges */}
+        {/* ── Right Actions ── */}
+        <div className="flex items-center gap-2.5 shrink-0">
+
+          {/* Quick Hype Checker action */}
           <button
-            onClick={onOpenModelLab}
-            className="hidden sm:flex px-3 py-1.5 rounded-xl border border-purple-200 bg-purple-50 hover:bg-purple-100 text-purple-700 text-xs font-bold transition-colors items-center gap-1.5 shadow-xs"
-            title="Inspect trained PyTorch/ONNX neural networks and metrics"
+            onClick={() => handleNavClick('hype')}
+            className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[12px] font-bold transition-all cursor-pointer border"
+            style={{
+              background: '#FFF5F0',
+              borderColor: '#FD956D55',
+              color: '#C2410C',
+              fontFamily: 'Archivo, sans-serif',
+            }}
           >
-            <Cpu className="w-3.5 h-3.5 text-purple-600" />
-            <span>ML Model Lab</span>
+            <Flame className="w-3.5 h-3.5 text-orange-500 fill-orange-500" />
+            <span>Hype Detector</span>
           </button>
 
-          {/* Fitness Pill */}
-          <div
-            onClick={() => onSelectTab('history')}
-            className="cursor-pointer flex items-center gap-2 pl-3 pr-2 py-1 rounded-2xl bg-emerald-50 border border-emerald-200 hover:border-emerald-300 transition-colors shadow-xs"
-            title="Your Financial Fitness Score"
-          >
-            <div className="text-right">
-              <span className="text-[10px] uppercase font-bold text-gray-400 block leading-none">
-                Fitness
-              </span>
-              <span className="text-xs font-black font-mono text-emerald-700 leading-none">
-                {profile.score}/100
-              </span>
-            </div>
-            <div className="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">
-              <Zap className="w-3 h-3" />
-            </div>
-          </div>
-
-          {/* Supabase Auth State */}
+          {/* Auth Button */}
           {user ? (
-            <div className="flex items-center gap-1.5 pl-1.5 border-l border-gray-200">
-              <div
-                onClick={() => onSelectTab('auth')}
-                className="cursor-pointer hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold transition-colors"
-                title={`Signed in as ${user.email}`}
-              >
-                <div className="w-5 h-5 rounded-full bg-amber-500 text-white flex items-center justify-center text-[10px] font-bold uppercase">
-                  {userDisplayName.charAt(0)}
-                </div>
-                <span className="max-w-[100px] truncate">{userDisplayName}</span>
-              </div>
+            <div className="flex items-center gap-2">
               <button
-                onClick={handleSignOut}
-                className="p-1.5 rounded-xl border border-gray-200 hover:bg-rose-50 hover:border-rose-200 hover:text-rose-600 text-gray-500 transition-colors"
+                onClick={() => onSelectTab('auth')}
+                className="hidden sm:flex px-3 py-1.5 rounded-full text-[13px] font-medium bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
+                style={{ fontFamily: 'Archivo, sans-serif' }}
+              >
+                {userDisplayName}
+              </button>
+              <button
+                onClick={() => signOut()}
                 title="Sign Out"
+                className="p-2 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors cursor-pointer"
               >
                 <LogOut className="w-4 h-4" />
               </button>
@@ -169,52 +127,40 @@ export const Navbar: React.FC<NavbarProps> = ({
           ) : (
             <button
               onClick={() => onSelectTab('auth')}
-              className={`px-3 py-1.5 rounded-xl font-bold text-xs transition-all flex items-center gap-1.5 shadow-xs ${
-                currentTab === 'auth'
-                  ? 'bg-amber-500 text-white shadow-amber-200'
-                  : 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white shadow-amber-200/50'
-              }`}
+              className="r-btn-dark !py-2 !px-4 text-[13px] cursor-pointer flex items-center gap-1.5"
             >
               <LogIn className="w-3.5 h-3.5" />
               <span>Sign In</span>
             </button>
           )}
+
+          {/* Mobile hamburger */}
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="md:hidden p-2 rounded-xl text-gray-700 hover:bg-gray-100"
+          >
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
         </div>
       </div>
 
-      {/* Mobile Nav Bar */}
-      <div className="md:hidden flex border-t border-gray-100 px-3 py-2 bg-gray-50/70 justify-around text-xs font-bold text-gray-600">
-        <button
-          onClick={() => onSelectTab('dashboard')}
-          className={`px-2.5 py-1 rounded-lg ${currentTab === 'dashboard' ? 'bg-white text-emerald-700 shadow-xs' : ''}`}
-        >
-          Dashboard
-        </button>
-        <button
-          onClick={() => onSelectTab('glossary')}
-          className={`px-2.5 py-1 rounded-lg ${currentTab === 'glossary' ? 'bg-white text-emerald-700 shadow-xs' : ''}`}
-        >
-          Glossary
-        </button>
-        <button
-          onClick={() => onSelectTab('document')}
-          className={`px-2.5 py-1 rounded-lg ${currentTab === 'document' ? 'bg-white text-emerald-700 shadow-xs' : ''}`}
-        >
-          Doc Reader
-        </button>
-        <button
-          onClick={() => onSelectTab('history')}
-          className={`px-2.5 py-1 rounded-lg ${currentTab === 'history' ? 'bg-white text-emerald-700 shadow-xs' : ''}`}
-        >
-          Simulations
-        </button>
-        <button
-          onClick={() => onSelectTab('auth')}
-          className={`px-2.5 py-1 rounded-lg ${currentTab === 'auth' ? 'bg-amber-500 text-white shadow-xs' : 'text-amber-700'}`}
-        >
-          {user ? 'Account' : 'Login'}
-        </button>
-      </div>
+      {/* Mobile menu */}
+      {mobileOpen && (
+        <div className="md:hidden border-t px-6 py-4 bg-white space-y-2">
+          {NAV_LINKS.map((link) => (
+            <button
+              key={link.id}
+              onClick={() => {
+                handleNavClick(link.id);
+                setMobileOpen(false);
+              }}
+              className="w-full text-left px-4 py-2.5 rounded-xl text-sm font-semibold text-gray-800 hover:bg-gray-50 flex items-center justify-between"
+            >
+              <span>{link.label}</span>
+            </button>
+          ))}
+        </div>
+      )}
     </header>
   );
 };

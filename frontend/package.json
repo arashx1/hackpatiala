@@ -1,5 +1,5 @@
 {
-  "name": "moneymind",
+  "name": "fundbee",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -9,7 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.116.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.395.0",
     "react": "^18.3.1",
