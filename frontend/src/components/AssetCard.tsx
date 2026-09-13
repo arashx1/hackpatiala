@@ -141,9 +141,9 @@ export const AssetCard: React.FC<AssetCardProps> = ({ asset, onSimulate }) => {
   };
 
   return (
-    <div className="group bg-white rounded-3xl p-5 border border-gray-100/90 shadow-sm hover:shadow-xl hover:border-emerald-200/70 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
+    <div className="group bg-white rounded-3xl p-5 border border-gray-100/90 shadow-sm hover:shadow-xl hover:border-emerald-200/70 transition-all duration-300 flex flex-col justify-between relative">
       {/* Top subtle highlight */}
-      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-400/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+      <div className="absolute top-0 left-0 right-0 h-1 rounded-t-3xl bg-gradient-to-r from-transparent via-emerald-400/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
 
       <div>
         {/* Header: Name, Ticker, Type */}
@@ -253,7 +253,7 @@ export const AssetCard: React.FC<AssetCardProps> = ({ asset, onSimulate }) => {
         <div className="grid grid-cols-3 gap-1 py-2 px-3 rounded-2xl bg-gray-50/70 text-[11px] text-gray-600 my-2">
           <div>
             <span className="block text-[10px] text-gray-400">
-              <JargonTooltip term="Beta">Beta</JargonTooltip>
+              <JargonTooltip term="Beta" align="left">Beta</JargonTooltip>
             </span>
             <span className="font-semibold text-gray-800 font-mono">
               {asset.beta !== undefined ? asset.beta.toFixed(2) : '1.00'}
@@ -262,7 +262,7 @@ export const AssetCard: React.FC<AssetCardProps> = ({ asset, onSimulate }) => {
 
           <div>
             <span className="block text-[10px] text-gray-400">
-              <JargonTooltip term="Volatility">Vol</JargonTooltip>
+              <JargonTooltip term="Volatility" align="center">Vol</JargonTooltip>
             </span>
             <span className="font-semibold text-gray-800 font-mono">
               {asset.volatility !== undefined ? `${(asset.volatility * 100).toFixed(0)}%` : '20%'}
@@ -271,7 +271,7 @@ export const AssetCard: React.FC<AssetCardProps> = ({ asset, onSimulate }) => {
 
           <div>
             <span className="block text-[10px] text-gray-400">
-              <JargonTooltip term="Market Capitalisation">Cap</JargonTooltip>
+              <JargonTooltip term="Market Capitalisation" align="right">Cap</JargonTooltip>
             </span>
             <span className="font-semibold text-gray-800 font-mono">
               {asset.marketCap || 'Large'}
