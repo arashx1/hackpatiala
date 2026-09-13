@@ -8,7 +8,6 @@ import {
   Zap,
   LogIn,
   LogOut,
-  User as UserIcon,
 } from 'lucide-react';
 import { UserFitnessProfile } from '../types';
 import { useAuth } from '../context/AuthContext';
