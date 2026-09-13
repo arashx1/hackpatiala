@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   X,
   Compass,
@@ -8,12 +8,37 @@ import {
   ArrowRight,
   ArrowLeft,
   Sparkles,
+  TrendingDown,
+  TrendingUp,
 } from 'lucide-react';
 import { Asset, CoachEvaluation, RiskTolerance } from '../types';
 import { evaluateDecisionWithCoach } from '../lib/api';
 import { calculateTradeImpact, recordTradeAndScore } from '../lib/fitnessScore';
 import { RiskGauge } from './RiskGauge';
 import { HypeBadge } from './HypeBadge';
+
+// ---------------------------------------------------------------------------
+// Static 6-month counterfactual return data (mock / representative)
+// ---------------------------------------------------------------------------
+const COUNTERFACTUAL_DATA: Record<string, { ticker6m: number; spy6m: number; note: string }> = {
+  // Meme / hype stocks — often crashed vs S&P
+  GME:  { ticker6m: -62,  spy6m: +8,  note: 'Peak meme spike then 62% crash while S&P gained 8%' },
+  AMC:  { ticker6m: -74,  spy6m: +8,  note: 'Post-squeeze collapse wiped 74% in six months' },
+  DOGE: { ticker6m: -58,  spy6m: +8,  note: 'Celebrity-driven rally reversed sharply' },
+  BTC:  { ticker6m: -35,  spy6m: +8,  note: 'Crypto cycle drawdown of 35% over 6 months' },
+  ARKK: { ticker6m: -28,  spy6m: +8,  note: 'Innovation ETF underperformed S&P by 36 pp' },
+  // Quality stocks — beat or match S&P
+  AAPL: { ticker6m: +18,  spy6m: +8,  note: 'iPhone supercycle lifted Apple 18% vs S&P +8%' },
+  MSFT: { ticker6m: +22,  spy6m: +8,  note: 'Azure + Copilot growth drove 22% gain' },
+  NVDA: { ticker6m: +87,  spy6m: +8,  note: 'AI chip dominance rocketed NVDA +87%' },
+  AMZN: { ticker6m: +31,  spy6m: +8,  note: 'AWS rebound and retail margin expansion' },
+  TSLA: { ticker6m: -22,  spy6m: +8,  note: 'Delivery misses and price cuts hurt margins' },
+  SPY:  { ticker6m: +8,   spy6m: +8,  note: 'Baseline broad-market 6-month return' },
+  VTI:  { ticker6m: +9,   spy6m: +8,  note: 'Total market ETF roughly matched S&P' },
+};
+
+const DEFAULT_CF: { ticker6m: number; spy6m: number; note: string } =
+  { ticker6m: -18, spy6m: +8, note: 'Hype-driven assets have historically trailed the index after a viral spike' };
 
 interface DecisionCoachModalProps {
   asset: Asset | null;
@@ -238,9 +263,33 @@ export const DecisionCoachModal: React.FC<DecisionCoachModalProps> = ({
           {/* STEP 2: NEURAL NETWORK SIGNALS */}
           {step === 2 && (
             <div className="space-y-4 animate-in fade-in duration-150">
-              <div className="text-xs text-gray-500">
-                Review how real trained neural networks rate <strong className="text-gray-900">{asset.ticker}</strong> before deciding:
+              <div className="flex items-center justify-between">
+                <p className="text-xs text-gray-500">
+                  Trained neural networks rate <strong className="text-gray-900">{asset.ticker}</strong> below:
+                </p>
+                {/* Inline hype score chip */}
+                <span
+                  className={`text-[11px] font-bold px-2.5 py-1 rounded-full border ${
+                    asset.hypeScore >= 50
+                      ? 'bg-orange-100 text-orange-800 border-orange-200'
+                      : 'bg-sky-50 text-sky-700 border-sky-200'
+                  }`}
+                >
+                  {asset.hypeScore.toFixed(0)}% hype-driven
+                </span>
               </div>
+
+              {/* High-hype FOMO alert banner */}
+              {asset.hypeScore >= 50 && (
+                <div className="p-3 rounded-2xl bg-orange-50 border border-orange-200 flex items-start gap-2.5">
+                  <Flame className="w-4 h-4 text-orange-500 shrink-0 mt-0.5" />
+                  <div className="text-xs text-orange-900 leading-relaxed">
+                    <strong className="font-bold">FOMO Alert — {asset.hypeScore.toFixed(0)}% Hype-Driven:</strong> The Hype
+                    Detector NN flags <span className="font-semibold">{asset.ticker}</span> as predominantly driven by social
+                    media momentum rather than fundamentals. Be cautious of emotional buying.
+                  </div>
+                </div>
+              )}
 
               <div className="grid sm:grid-cols-2 gap-3">
                 <RiskGauge score={asset.riskScore} label={asset.riskLabel} />
@@ -279,10 +328,22 @@ export const DecisionCoachModal: React.FC<DecisionCoachModalProps> = ({
           {/* STEP 3: SOCRATIC QUESTIONS */}
           {step === 3 && evaluation && (
             <div className="space-y-5 animate-in fade-in duration-150">
-              <div className="p-3 rounded-2xl bg-emerald-50/60 border border-emerald-100 text-xs text-emerald-900 flex items-center gap-2">
-                <Compass className="w-4 h-4 text-emerald-600 shrink-0" />
-                <span>Answer these Socratic prompts honestly. There is no wrong answer, only self-awareness.</span>
-              </div>
+              {/* Stronger FOMO prompt when hype score is high */}
+              {asset.hypeScore >= 50 ? (
+                <div className="p-3 rounded-2xl bg-orange-50 border border-orange-300 text-xs text-orange-950 flex items-start gap-2">
+                  <Flame className="w-4 h-4 text-orange-500 shrink-0 mt-0.5" />
+                  <span>
+                    <strong>High Hype Warning ({asset.hypeScore.toFixed(0)}%):</strong> The NN Signals show this asset is
+                    predominantly sentiment-driven. Work through these questions carefully before proceeding — chasing
+                    hype is the #1 way beginner investors lose money.
+                  </span>
+                </div>
+              ) : (
+                <div className="p-3 rounded-2xl bg-emerald-50/60 border border-emerald-100 text-xs text-emerald-900 flex items-center gap-2">
+                  <Compass className="w-4 h-4 text-emerald-600 shrink-0" />
+                  <span>Answer these Socratic prompts honestly. There is no wrong answer, only self-awareness.</span>
+                </div>
+              )}
 
               {evaluation.socratic_questions.map((q, idx) => (
                 <div key={q.id} className="p-4 rounded-2xl border border-gray-100 bg-gray-50/40 space-y-2.5">
@@ -329,47 +390,119 @@ export const DecisionCoachModal: React.FC<DecisionCoachModalProps> = ({
           )}
 
           {/* STEP 4: VERDICT & FITNESS IMPACT */}
-          {step === 4 && outcome && (
-            <div className="space-y-5 text-center py-4 animate-in zoom-in-95 duration-200">
-              <div
-                className={`w-16 h-16 rounded-full mx-auto flex items-center justify-center ${
-                  outcome.delta >= 0 ? 'bg-emerald-100 text-emerald-700' : 'bg-orange-100 text-orange-700'
-                }`}
-              >
-                {outcome.delta >= 0 ? (
-                  <CheckCircle2 className="w-8 h-8" />
-                ) : (
-                  <AlertTriangle className="w-8 h-8" />
-                )}
-              </div>
+          {step === 4 && outcome && (() => {
+            const cf = COUNTERFACTUAL_DATA[asset.ticker] ?? DEFAULT_CF;
+            const invested = amount;
+            const tickerReturn = Math.round(invested * cf.ticker6m / 100);
+            const spyReturn   = Math.round(invested * cf.spy6m   / 100);
+            const diff        = tickerReturn - spyReturn;
+            return (
+              <div className="space-y-4 text-center py-2 animate-in zoom-in-95 duration-200">
+                <div
+                  className={`w-14 h-14 rounded-full mx-auto flex items-center justify-center ${
+                    outcome.delta >= 0 ? 'bg-emerald-100 text-emerald-700' : 'bg-orange-100 text-orange-700'
+                  }`}
+                >
+                  {outcome.delta >= 0 ? (
+                    <CheckCircle2 className="w-7 h-7" />
+                  ) : (
+                    <AlertTriangle className="w-7 h-7" />
+                  )}
+                </div>
 
-              <div>
-                <h3 className="text-xl font-bold text-gray-900">
-                  {outcome.confirmed ? 'Simulated Order Completed' : 'Disciplined Restraint Exercised'}
-                </h3>
-                <p className="text-xs text-gray-500 mt-1 max-w-md mx-auto">{outcome.reason}</p>
-              </div>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-900">
+                    {outcome.confirmed ? 'Simulated Order Completed' : 'Disciplined Restraint Exercised'}
+                  </h3>
+                  <p className="text-xs text-gray-500 mt-0.5 max-w-md mx-auto">{outcome.reason}</p>
+                </div>
 
-              {/* Financial Fitness Score Delta Card */}
-              <div className="p-4 rounded-2xl bg-gray-50 border border-gray-100 max-w-sm mx-auto">
-                <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider block mb-1">
-                  Financial Fitness Impact
-                </span>
-                <div className="flex items-center justify-center gap-2">
-                  <span
-                    className={`text-3xl font-black font-mono ${
-                      outcome.delta >= 0 ? 'text-emerald-600' : 'text-rose-600'
-                    }`}
-                  >
-                    {outcome.delta >= 0 ? `+${outcome.delta}` : outcome.delta} pts
+                {/* Financial Fitness Score Delta Card */}
+                <div className="p-3.5 rounded-2xl bg-gray-50 border border-gray-100 max-w-xs mx-auto">
+                  <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider block mb-1">
+                    Financial Fitness Impact
+                  </span>
+                  <div className="flex items-center justify-center gap-2">
+                    <span
+                      className={`text-3xl font-black font-mono ${
+                        outcome.delta >= 0 ? 'text-emerald-600' : 'text-rose-600'
+                      }`}
+                    >
+                      {outcome.delta >= 0 ? `+${outcome.delta}` : outcome.delta} pts
+                    </span>
+                  </div>
+                  <span className="text-[10px] text-gray-500 mt-0.5 block">
+                    Logged to your local Mind Over Money profile.
                   </span>
                 </div>
-                <span className="text-[11px] text-gray-500 mt-1 block">
-                  Your decision has been logged to your local Mind Over Money profile.
-                </span>
+
+                {/* ── Regret / Counterfactual Simulator ── */}
+                <div className="rounded-2xl border border-gray-200 overflow-hidden text-left">
+                  <div className="px-4 py-2.5 bg-gray-900 flex items-center justify-between">
+                    <span className="text-xs font-bold text-white">
+                      📊 6-Month Reality Check — If You Had Invested ${invested.toLocaleString()}
+                    </span>
+                    <span className="text-[10px] text-gray-400">Static illustrative data</span>
+                  </div>
+
+                  <div className="grid grid-cols-2 divide-x divide-gray-100">
+                    {/* Asset column */}
+                    <div className="p-3 bg-white">
+                      <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-1">{asset.ticker}</p>
+                      <div className="flex items-center gap-1">
+                        {tickerReturn >= 0
+                          ? <TrendingUp className="w-4 h-4 text-emerald-500" />
+                          : <TrendingDown className="w-4 h-4 text-rose-500" />}
+                        <span
+                          className={`text-xl font-black font-mono ${
+                            tickerReturn >= 0 ? 'text-emerald-600' : 'text-rose-600'
+                          }`}
+                        >
+                          {tickerReturn >= 0 ? '+' : ''}
+                          ${Math.abs(tickerReturn).toLocaleString()}
+                        </span>
+                      </div>
+                      <p className={`text-[11px] font-semibold mt-0.5 ${
+                        cf.ticker6m >= 0 ? 'text-emerald-600' : 'text-rose-600'
+                      }`}>
+                        {cf.ticker6m >= 0 ? '+' : ''}{cf.ticker6m}% over 6 mo
+                      </p>
+                    </div>
+
+                    {/* S&P 500 column */}
+                    <div className="p-3 bg-gray-50">
+                      <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider mb-1">S&amp;P 500 Index</p>
+                      <div className="flex items-center gap-1">
+                        <TrendingUp className="w-4 h-4 text-sky-500" />
+                        <span className="text-xl font-black font-mono text-sky-600">
+                          +${Math.abs(spyReturn).toLocaleString()}
+                        </span>
+                      </div>
+                      <p className="text-[11px] font-semibold mt-0.5 text-sky-600">
+                        +{cf.spy6m}% over 6 mo
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Difference row */}
+                  <div className={`px-4 py-2 flex items-center justify-between text-xs ${
+                    diff >= 0 ? 'bg-emerald-50' : 'bg-rose-50'
+                  }`}>
+                    <span className={`font-semibold ${ diff >= 0 ? 'text-emerald-800' : 'text-rose-800'}`}>
+                      {diff >= 0 ? `${asset.ticker} beat the index by` : `${asset.ticker} trailed the index by`}
+                    </span>
+                    <span className={`font-black font-mono ${ diff >= 0 ? 'text-emerald-700' : 'text-rose-700'}`}>
+                      {diff >= 0 ? '+' : '-'}${Math.abs(diff).toLocaleString()}
+                    </span>
+                  </div>
+
+                  <p className="px-4 py-2 text-[10px] text-gray-500 bg-white italic border-t border-gray-100">
+                    {cf.note}
+                  </p>
+                </div>
               </div>
-            </div>
-          )}
+            );
+          })()}
         </div>
 
         {/* Modal Footer Navigation */}
