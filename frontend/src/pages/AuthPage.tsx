@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import {
   Mail,
   Lock,
@@ -17,11 +17,17 @@ import { useAuth } from '../context/AuthContext';
 
 interface AuthPageProps {
   onSuccessRedirect?: () => void;
+  onBackToHome?: () => void;
+  initialMode?: 'signin' | 'signup';
 }
 
-export const AuthPage: React.FC<AuthPageProps> = ({ onSuccessRedirect }) => {
+export const AuthPage: React.FC<AuthPageProps> = ({
+  onSuccessRedirect,
+  onBackToHome,
+  initialMode = 'signin',
+}) => {
   const { signIn, signUp, user, signOut } = useAuth();
-  const [mode, setMode] = useState<'signin' | 'signup'>('signin');
+  const [mode, setMode] = useState<'signin' | 'signup'>(initialMode);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
@@ -55,13 +61,9 @@ export const AuthPage: React.FC<AuthPageProps> = ({ onSuccessRedirect }) => {
           fullName.trim()
         );
         if (error) {
-          setErrorMsg(error.message);
+          setErrorMsg(error);
         } else {
-          setSuccessMsg(
-            newUser?.identities?.length === 0
-              ? 'This email is already registered. Try signing in instead.'
-              : '🎉 Welcome to FundBee! Your account is created.'
-          );
+          setSuccessMsg('ðŸŽ‰ Welcome to FundBee! Your account is created.');
           if (onSuccessRedirect && newUser) {
             setTimeout(() => {
               onSuccessRedirect();
@@ -71,9 +73,9 @@ export const AuthPage: React.FC<AuthPageProps> = ({ onSuccessRedirect }) => {
       } else {
         const { error } = await signIn(email.trim(), password);
         if (error) {
-          setErrorMsg(error.message);
+          setErrorMsg(error);
         } else {
-          setSuccessMsg('✅ Signed in successfully! Welcome back to FundBee.');
+          setSuccessMsg('âœ… Signed in successfully! Welcome back to FundBee.');
           if (onSuccessRedirect) {
             setTimeout(() => {
               onSuccessRedirect();
@@ -87,6 +89,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ onSuccessRedirect }) => {
       setSubmitting(false);
     }
   };
+
 
   // If already signed in, show welcome card
   if (user) {
@@ -109,7 +112,8 @@ export const AuthPage: React.FC<AuthPageProps> = ({ onSuccessRedirect }) => {
               <span>FundBee Account Active</span>
             </div>
             <p>
-              Your simulated investment decisions, Financial Fitness score, and Document summaries are linked to your Supabase profile.
+              Your simulated investment decisions, Financial Fitness score, and history are saved locally to this browser.
+
             </p>
           </div>
 
@@ -134,11 +138,20 @@ export const AuthPage: React.FC<AuthPageProps> = ({ onSuccessRedirect }) => {
 
   return (
     <div className="max-w-4xl mx-auto py-8 px-4">
+      {onBackToHome && (
+        <button
+          type="button"
+          onClick={onBackToHome}
+          className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-900 font-semibold mb-6 transition-colors cursor-pointer"
+        >
+          <span>â† Back to Home Page</span>
+        </button>
+      )}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
         {/* Left Feature Column */}
         <div className="md:col-span-5 space-y-6">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-100 text-amber-900 text-xs font-bold">
-            <span className="text-base">🐝</span>
+            <span className="text-base">Ã°Å¸ÂÂ</span>
             <span>Welcome to FundBee</span>
           </div>
 
@@ -181,9 +194,9 @@ export const AuthPage: React.FC<AuthPageProps> = ({ onSuccessRedirect }) => {
                 <ShieldCheck className="w-4 h-4" />
               </div>
               <div>
-                <h4 className="text-xs font-bold text-gray-900">Secure Supabase Auth</h4>
+                <h4 className="text-xs font-bold text-gray-900">Private Local Account</h4>
                 <p className="text-[11px] text-gray-500">
-                  Encrypted authentication powered by Supabase Cloud.
+                  Runs directly in your browser with zero external setup needed.
                 </p>
               </div>
             </div>
@@ -317,7 +330,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({ onSuccessRedirect }) => {
                     minLength={6}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="••••••••"
+                    placeholder="Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢"
                     className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-gray-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 text-xs text-gray-800 outline-none transition-all placeholder:text-gray-400"
                   />
                   <button
@@ -349,14 +362,17 @@ export const AuthPage: React.FC<AuthPageProps> = ({ onSuccessRedirect }) => {
               </button>
             </form>
 
-            {/* Guest Action */}
+            {/* Quick Demo Action */}
             <div className="border-t border-gray-100 pt-4 text-center">
               <button
                 type="button"
-                onClick={onSuccessRedirect}
-                className="text-xs text-gray-500 hover:text-gray-800 font-semibold underline underline-offset-2"
+                onClick={async () => {
+                  await signIn('investor@FundBee.demo', 'demo1234');
+                  if (onSuccessRedirect) onSuccessRedirect();
+                }}
+                className="text-xs text-emerald-700 hover:text-emerald-800 font-bold hover:underline py-1.5 px-3 rounded-lg hover:bg-emerald-50 transition-colors"
               >
-                Continue as Guest (Skip for now)
+                âš¡ Instant Access: Explore as Demo Investor
               </button>
             </div>
           </div>
@@ -367,3 +383,4 @@ export const AuthPage: React.FC<AuthPageProps> = ({ onSuccessRedirect }) => {
 };
 
 export default AuthPage;
+

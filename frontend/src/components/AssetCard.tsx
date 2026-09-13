@@ -141,36 +141,44 @@ export const AssetCard: React.FC<AssetCardProps> = ({ asset, onSimulate }) => {
   };
 
   return (
-    <div className="group bg-white rounded-3xl p-5 border border-gray-100/90 shadow-sm hover:shadow-xl hover:border-emerald-200/70 transition-all duration-300 flex flex-col justify-between relative">
-      {/* Top subtle highlight */}
-      <div className="absolute top-0 left-0 right-0 h-1 rounded-t-3xl bg-gradient-to-r from-transparent via-emerald-400/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
-
+    <div className="r-card p-5 flex flex-col justify-between">
       <div>
         {/* Header: Name, Ticker, Type */}
         <div className="flex items-start justify-between gap-3 mb-3">
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="font-bold text-gray-900 text-base group-hover:text-emerald-700 transition-colors">
+              <h3
+                className="font-semibold text-[17px] tracking-[-0.3px]"
+                style={{ fontFamily: 'Gabarito, sans-serif', color: '#181D1F' }}
+              >
                 {asset.ticker}
               </h3>
-              <span className="text-[11px] font-semibold uppercase px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">
+              <span
+                className="text-[11px] font-semibold uppercase px-2 py-0.5 rounded-full"
+                style={{ fontFamily: 'Archivo, sans-serif', background: '#EAE4DC', color: '#424647' }}
+              >
                 {asset.type}
               </span>
             </div>
-            <p className="text-xs text-gray-500 font-medium truncate max-w-[180px]">
+            <p
+              className="text-[12px] font-medium truncate max-w-[180px] mt-0.5"
+              style={{ fontFamily: 'Archivo, sans-serif', color: '#7d7d87' }}
+            >
               {asset.name}
             </p>
           </div>
 
           {/* Price & Change */}
           <div className="text-right">
-            <div className="font-bold text-base text-gray-900 font-mono">
+            <div
+              className="font-semibold text-[17px] font-mono"
+              style={{ fontFamily: 'Gabarito, sans-serif', color: '#181D1F' }}
+            >
               ${currentPrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </div>
             <div
-              className={`inline-flex items-center text-xs font-semibold ${
-                isPositive ? 'text-emerald-600' : 'text-rose-600'
-              }`}
+              className="inline-flex items-center text-[12px] font-semibold"
+              style={{ color: isPositive ? '#16a34a' : '#dc2626' }}
             >
               {isPositive ? (
                 <ArrowUpRight className="w-3.5 h-3.5" />
@@ -183,14 +191,20 @@ export const AssetCard: React.FC<AssetCardProps> = ({ asset, onSimulate }) => {
         </div>
 
         {/* 7-Day Trend: Candlestick or Line */}
-        <div className="my-2 bg-gray-50/60 rounded-2xl p-2.5 border border-gray-100">
-          <div className="flex items-center justify-between text-[10px] text-gray-400 font-medium mb-1.5 px-1">
+        <div className="my-2 rounded-2xl p-2.5" style={{ background: '#F8F4EF', border: '1px solid #E7E7E9' }}>
+          <div className="flex items-center justify-between mb-1.5 px-1">
             <span className="flex items-center gap-1.5">
-              <span className="font-semibold text-gray-600">
+              <span
+                className="text-[11px] font-semibold"
+                style={{ fontFamily: 'Archivo, sans-serif', color: '#424647' }}
+              >
                 {chartType === 'candles' ? 'Candlesticks' : '7-Day Trend'}
               </span>
               {isLastKnownPrice && (
-                <span className="text-amber-600 text-[9px] font-medium bg-amber-50 px-1.5 py-0.2 rounded border border-amber-200">
+                <span
+                  className="text-[9px] font-medium px-1.5 rounded"
+                  style={{ background: '#F6E7CF', color: '#92400e' }}
+                >
                   last known
                 </span>
               )}
@@ -198,33 +212,43 @@ export const AssetCard: React.FC<AssetCardProps> = ({ asset, onSimulate }) => {
 
             <div className="flex items-center gap-2">
               {!isChartComingSoon && sparklineData.length >= 2 && (
-                <span className="font-mono text-[10px] text-gray-500">
+                <span
+                  className="font-mono text-[10px]"
+                  style={{ fontFamily: 'Archivo, sans-serif', color: '#7d7d87' }}
+                >
                   ${sparklineData[0]?.toFixed(1)} → ${sparklineData[sparklineData.length - 1]?.toFixed(1)}
                 </span>
               )}
-              {/* Candlestick vs Line Toggle */}
-              <div className="flex items-center bg-gray-200/80 p-0.5 rounded-lg text-[9px] font-bold">
+              {/* Toggle */}
+              <div
+                className="flex items-center p-0.5 rounded-lg text-[9px] font-bold"
+                style={{ background: '#EAE4DC' }}
+              >
                 <button
                   type="button"
                   onClick={() => setChartType('candles')}
-                  className={`px-1.5 py-0.5 rounded transition-all ${
-                    chartType === 'candles'
-                      ? 'bg-white text-emerald-700 shadow-xs'
-                      : 'text-gray-500 hover:text-gray-900'
-                  }`}
-                  title="Candlestick Chart (Open / High / Low / Close)"
+                  className="px-1.5 py-0.5 rounded transition-all"
+                  style={{
+                    fontFamily: 'Archivo, sans-serif',
+                    background: chartType === 'candles' ? '#ffffff' : 'transparent',
+                    color: chartType === 'candles' ? '#181D1F' : '#7d7d87',
+                    boxShadow: chartType === 'candles' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                  }}
+                  title="Candlestick Chart"
                 >
                   Candles
                 </button>
                 <button
                   type="button"
                   onClick={() => setChartType('line')}
-                  className={`px-1.5 py-0.5 rounded transition-all ${
-                    chartType === 'line'
-                      ? 'bg-white text-emerald-700 shadow-xs'
-                      : 'text-gray-500 hover:text-gray-900'
-                  }`}
-                  title="Line Trend Area Chart"
+                  className="px-1.5 py-0.5 rounded transition-all"
+                  style={{
+                    fontFamily: 'Archivo, sans-serif',
+                    background: chartType === 'line' ? '#ffffff' : 'transparent',
+                    color: chartType === 'line' ? '#181D1F' : '#7d7d87',
+                    boxShadow: chartType === 'line' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                  }}
+                  title="Line Chart"
                 >
                   Line
                 </button>
@@ -250,30 +274,51 @@ export const AssetCard: React.FC<AssetCardProps> = ({ asset, onSimulate }) => {
         </div>
 
         {/* Jargon-Buster Metrics Strip */}
-        <div className="grid grid-cols-3 gap-1 py-2 px-3 rounded-2xl bg-gray-50/70 text-[11px] text-gray-600 my-2">
+        <div
+          className="grid grid-cols-3 gap-1 py-2 px-3 rounded-2xl my-2"
+          style={{ background: '#F8F4EF', border: '1px solid #E7E7E9' }}
+        >
           <div>
-            <span className="block text-[10px] text-gray-400">
+            <span
+              className="block text-[10px] mb-0.5"
+              style={{ fontFamily: 'Archivo, sans-serif', color: '#7d7d87' }}
+            >
               <JargonTooltip term="Beta" align="left">Beta</JargonTooltip>
             </span>
-            <span className="font-semibold text-gray-800 font-mono">
+            <span
+              className="font-semibold text-[12px] font-mono"
+              style={{ color: '#181D1F' }}
+            >
               {asset.beta !== undefined ? asset.beta.toFixed(2) : '1.00'}
             </span>
           </div>
 
           <div>
-            <span className="block text-[10px] text-gray-400">
+            <span
+              className="block text-[10px] mb-0.5"
+              style={{ fontFamily: 'Archivo, sans-serif', color: '#7d7d87' }}
+            >
               <JargonTooltip term="Volatility" align="center">Vol</JargonTooltip>
             </span>
-            <span className="font-semibold text-gray-800 font-mono">
+            <span
+              className="font-semibold text-[12px] font-mono"
+              style={{ color: '#181D1F' }}
+            >
               {asset.volatility !== undefined ? `${(asset.volatility * 100).toFixed(0)}%` : '20%'}
             </span>
           </div>
 
           <div>
-            <span className="block text-[10px] text-gray-400">
+            <span
+              className="block text-[10px] mb-0.5"
+              style={{ fontFamily: 'Archivo, sans-serif', color: '#7d7d87' }}
+            >
               <JargonTooltip term="Market Capitalisation" align="right">Cap</JargonTooltip>
             </span>
-            <span className="font-semibold text-gray-800 font-mono">
+            <span
+              className="font-semibold text-[12px] font-mono"
+              style={{ color: '#181D1F' }}
+            >
               {asset.marketCap || 'Large'}
             </span>
           </div>
@@ -283,10 +328,19 @@ export const AssetCard: React.FC<AssetCardProps> = ({ asset, onSimulate }) => {
       {/* CTA: Simulate Invest with Decision Coach */}
       <button
         onClick={handleSimulateClick}
-        className="mt-3 w-full py-2.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 active:scale-[0.98] text-white text-xs font-bold transition-all shadow-sm hover:shadow-emerald-200 flex items-center justify-center gap-1.5"
+        className="mt-3 w-full py-2.5 px-4 rounded-full flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
+        style={{
+          fontFamily: 'Gabarito, sans-serif',
+          fontWeight: 600,
+          fontSize: '14px',
+          background: '#181D1F',
+          color: '#ffffff',
+        }}
+        onMouseEnter={e => (e.currentTarget as HTMLButtonElement).style.background = '#FD956D'}
+        onMouseLeave={e => (e.currentTarget as HTMLButtonElement).style.background = '#181D1F'}
       >
         <Compass className="w-4 h-4" />
-        <span>Practice Trade (Decision Coach)</span>
+        <span>Practice with Decision Coach</span>
       </button>
     </div>
   );

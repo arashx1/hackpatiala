@@ -85,7 +85,7 @@ export const HypeBadge: React.FC<HypeBadgeProps> = ({
       <div className="mt-2.5 pt-2 border-t border-gray-50 flex items-center justify-between text-[11px] text-gray-500">
         <span className="flex items-center gap-1">
           <Cpu className="w-3 h-3 text-purple-500" />
-          <span>MiniLM Embedding Classifier</span>
+          <span>AI Sentiment Classifier</span>
         </span>
         {showHeadlineCount ? (
           <span className="text-gray-400">
